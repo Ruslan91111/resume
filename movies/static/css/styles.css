@@ -28,3 +28,32 @@ body {
 .navbar-brand img {
 	width: 55px;
 }
+
+
+.left-sidebar {
+background: radial-gradient( #AB9F9F 0%, #C3BCBC 100%);
+	font-weight: 400;
+	color: black;
+	list-style-type: none;
+	border: solid;
+	border-color: black;
+}
+
+
+.left-sidebar>li {
+	border: solid;
+	background: radial-gradient( #000000 0%, #C3BCBC 100%);
+	border-color: black;
+	border-width: 15px;
+}
+
+
+.left-sidebar>li>a {
+    display: block;
+    padding: 1em;
+    text-decoration: none;
+    color: white;
+    font-family: Lobster;
+    font-size: 25px;
+
+}
