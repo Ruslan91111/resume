@@ -65,11 +65,16 @@
 <div class="col-lg-2 col-md-12">
     <div class="row px-2">        
     <div class="col-lg-12 sidebar my-4">
-
-    {% get_categories as categories %}
-
-
-   </div>
+    <!-- {% get_categories as categories %} -->
+        <div class="left-sidebar"><p style="font-family: Lobster; font-size: 30px; margin-left: 20px;">Фильмы по жанрам</p>    
+              {% for c in categories %}
+                 {% if c.pk == cat_selected %}
+                    <li class="selected">{{c.title_cat}}</li>
+                 {% else %}
+                    <li><a href="{{ c.get_absolute_url }}">{{ c.title_cat }}</a></li>
+                 {% endif %}
+              {% endfor %} 
+        </div>
     </div>
     </div>
 </div>
