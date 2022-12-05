@@ -58,7 +58,7 @@ class Category(models.Model):
         return self.title_cat
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'cat_slug': self.slug})
+        return reverse('movies_by_category', kwargs={'cat_slug': self.slug})
 
     class Meta:
         verbose_name = "Категории"

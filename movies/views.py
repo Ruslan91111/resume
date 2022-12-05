@@ -1,21 +1,19 @@
 from django.shortcuts import render
 from django.views.generic import ListView
-# from .utils import DataMixin
-from .models import Category
-
-def home(request):
-    return render(request, 'movies/home.html')
+from .models import Category, Movies
 
 
+class MoviesHome(ListView):
+    model = Movies
+    template_name = "movies/home.html"
 
-def movies_category(request):
-    return render(request, 'movies/home.html')
+    context_object_name = 'all_movies'
 
+class CategoriesList(ListView):
+    model = Category
+    template_name = "movies/list_of_categories.html"
 
+    context_object_name = 'all_categories'
 
-# class HomeView(DataMixin, ListView):
-#     model = Category
-#     # model = Post
-#     template_name = 'home.html'
 
 

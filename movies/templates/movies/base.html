@@ -68,48 +68,16 @@
 
     {% get_categories as categories %}
 
-        <div class="left-sidebar"><p style="font-family: Lobster; font-size: 30px; margin-left: 20px;">Фильмы по жанрам</p>
-        
-              {% for c in categories %}
-                    {% if c.pk == cat_selected %}
-                       <li class="selected">{{c.title_cat}}</li>
-                    {% else %}
-                       <li><a href="{{ c.get_absolute_url }}">{{ c.title_cat }}</a></li>
-                    {% endif %}
-              {% endfor %}
-        </div>      
 
-
-    {% block content %}
-    
-
-
-    </div>
+   </div>
     </div>
     </div>
 </div>
 
 
-  
-        
-
-
-
-
-
-
-
-<!-- Конец Sidebar'а -->
-    <!-- Хлебные крошки -->
-
+    {% block content %}
     {% endblock %}
 
 </section>
-
-
-
-
-
-
 </body>
 </html>        
