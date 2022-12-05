@@ -2,9 +2,13 @@
 
 {% block content %}
 
-  {% for m in list_of_movies %}
-  <p>{{ movies.title }}</p>
-  {% endfor %}
 
+<div class="categories">
+  <ul>
+  {% for c in categories_list %}
+  <li>{{ c.title_cat }}</li>
+  {% endfor %}
+</ul>
+</div>
 
 {% endblock %}
