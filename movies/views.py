@@ -2,7 +2,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
-from .models import Category, Movies
+
+from .forms import PostReview
+from .models import Category, Movies, Review
 
 
 # отображение домашней страницы
@@ -48,7 +50,7 @@ class MoviesByCategories(ListView):
         return context
 
     def get_queryset(self):
-        return Movies.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True )
+        return Movies.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
 
 
 # класс  представления одного фильма
@@ -58,15 +60,23 @@ class MovieDetailView(DetailView):
     slug_url_kwarg = 'movie_slug'
     context_object_name = 'detail_movie'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
 
+# добавление рецензии
+class AddReview(CreateView):
+    model = Review
+    form_class = PostReview
+    template_name = 'movies/add_review.html'
+    slug_url_kwarg = 'movie_slug'
 
-
-
-
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)
+    success_url = reverse_lazy('home')
 
 
 
