@@ -19,17 +19,16 @@
 
    <header>
    <div class="name" style="font-family: Lobster; font-size: 40px;">Panda's Movies: всё, что вы хотели бы знать о фильмах.</div>  
-
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="../../static/images/logo_navbar.png" alt="logo-image"></a>
+        <a class="navbar-brand" href="{% url 'home' %}"><img src="../../static/images/logo_navbar.png" alt="logo-image"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Главная страница</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Все фильмы</a>
@@ -62,26 +61,39 @@
 
 <section>
 
-<div class="col-lg-2 col-md-12">
-    <div class="row px-2">        
-    <div class="col-lg-12 sidebar my-4">
-    <!-- {% get_categories as categories %} -->
-        <div class="left-sidebar"><p style="font-family: Lobster; font-size: 30px; margin-left: 20px;">Фильмы по жанрам</p>    
-              {% for c in categories %}
-                 {% if c.pk == cat_selected %}
-                    <li class="selected">{{c.title_cat}}</li>
-                 {% else %}
-                    <li><a href="{{ c.get_absolute_url }}">{{ c.title_cat }}</a></li>
-                 {% endif %}
-              {% endfor %} 
+
+<div class="row">
+
+
+
+  <div class="col-lg-2 col-md-12">
+        <div class="row px-2">        
+        <div class="col-lg-12 sidebar my-4">
+        <!-- {% get_categories as categories %} -->
+            <div class="left-sidebar"><p style="font-family: Lobster; font-size: 30px; margin-left: 20px;">Фильмы по жанрам</p>    
+                  {% for c in categories %}
+                     {% if c.pk == cat_selected %}
+                        <li class="selected" style="font-size: 25px; color: black;  font-family: Lobster;   background: white;">{{c.title_cat}}</li>
+                     {% else %}
+                        <li><a href="{{ c.get_absolute_url }}">{{ c.title_cat }}</a></li>
+                     {% endif %}
+                  {% endfor %} 
+            </div>
         </div>
-    </div>
-    </div>
+        </div>
+  </div>
+
+  <div class="col-lg-8 col-md-12">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <div class="col-lg-2 col-md-12">
+  </div>
+
 </div>
 
 
-    {% block content %}
-    {% endblock %}
 
 </section>
 </body>
