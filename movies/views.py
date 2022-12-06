@@ -1,5 +1,7 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Category, Movies
 
 
@@ -39,19 +41,17 @@ class MoviesByCategories(ListView):
     context_object_name = 'movies_by_category'
     allow_empty = False
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Категория - ' + str(context['movies_by_category'][0].cat)
         context['cat_selected'] = context['movies_by_category'][0].cat_id
         return context
 
-
     def get_queryset(self):
         return Movies.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True )
 
 
-# класс  пердставления одного фильма
+# класс  представления одного фильма
 class MovieDetailView(DetailView):
     model = Movies
     template_name = 'movies/detail_movie.html'
@@ -61,6 +61,14 @@ class MovieDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+
+
+
+
+
+
 
 
 

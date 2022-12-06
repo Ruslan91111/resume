@@ -11,4 +11,5 @@ urlpatterns = [
     path('movies/<slug:movie_slug>', MovieDetailView.as_view(), name='detail_movie'),
 
 
+
 ]
