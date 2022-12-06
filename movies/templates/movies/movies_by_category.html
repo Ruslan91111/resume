@@ -1,33 +1,37 @@
 {% extends 'movies/base.html' %}
 
 {% block content %}
-<div class="title"><h1>{{ title }}</h1></div>
+<div class="title-cat"><h1>{{ title }}</h1></div>
 
 
 <div class="container-fluid">
-      <div class="row"> 
-        <div class="col-lg-3">
+    <div class="container_with_movies_by_cat">
+    <div class="row"> 
+      
+      <!-- <div class="col-lg-3"> -->
        
+        
+  
+      {% for m in movies_by_category %}
+          <div class="card-movie">
+           <a href="{{ m.get_absolute_url }}"><img src="{{ m.photo.url }}" class="card-img-top" alt="Pictures"></a>
+           <div class="card-body">
+             <p>{{ m.title }}</p>
+             <a href="{{ m.get_absolute_url }}" class="btn btn-primary">Выбрать</a>
+           </div>
+          </div>
+      {% endfor %}
+  </div>
 
-<div class="categories">
-  <ul>
-  {% for m in movies_by_category %}
-  <li><a href="{{ c.get_absolute_url }}">{{ m.title }}</a></li>
-  {% endfor %}
-</ul>
-</div>
+
+
+<!-- </div> -->
+           
 
  </div>
-        <div class="col-lg-8 col-md-12">
-                <!-- ПЕРВЫЕ ТРИ КАРТЫ -->
-                <div class="row">
-              <div class="col-lg-4 col-md-6 mt-4">
-                <div class="card">
-                 <a href="#"><img src="source/images/ball.jpg" class="card-img-top" alt="ball"></a>
-                 <div class="card-body">
-                   <h5 class="card-title"><a href="#">Мячи</a></h5>
-                   <p class="card-text"><a href="#">Some quick example text to build on the card title and make up the bulk of the card's content.</p></a>
-                   <a href="#" class="btn btn-primary">Выбрать</a>
+
+
+
                  </div>
                 </div>
               </div>
@@ -47,16 +51,6 @@
 
 
 
-
-<h1>{{ title }}</h1>
-
-<div class="categories">
-  <ul>
-  {% for m in movies_by_category %}
-  <li><a href="{{ c.get_absolute_url }}">{{ m.title }}</a></li>
-  {% endfor %}
-</ul>
-</div>
 
 
 

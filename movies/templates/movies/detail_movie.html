@@ -1,16 +1,69 @@
 {% extends 'movies/base.html' %}
 
-
-
-
 {% block content %}
 
-  <div class="Movies">
-    <ul>
-    <li>{{ detail_movie.title }}</li>
-    <li>{{ detail_movie.plot }}</li>
-  </ul>
+<div class="title-cat"><h1>{{ detail_movie.title }}</h1></div>
+
+
+  <div class="image_detail_movie">
+    <img src="{{ detail_movie.photo.url }}" class="card-img-top" alt="Pictures"></a>
   </div>
+
+  <div class="plot-text">
+    {{ detail_movie.plot }}
+  </div>
+
+
+
+
+<div class="container-fluid">
+    <div class="container_with_movies_by_cat">
+    <div class="row"> 
+      
+      <!-- <div class="col-lg-3"> -->
+       
+        
+  
+      {% for m in movies_by_category %}
+          <div class="card-movie">
+           <a href="{{ m.get_absolute_url }}"><img src="{{ m.photo.url }}" class="card-img-top" alt="Pictures"></a>
+           <div class="card-body">
+             <p>{{ m.title }}</p>
+             <a href="{{ m.get_absolute_url }}" class="btn btn-primary">Выбрать</a>
+           </div>
+          </div>
+      {% endfor %}
+  </div>
+
+
+
+<!-- </div> -->
+           
+
+ </div>
+
+
+
+                 </div>
+                </div>
+              </div>
+              
+                 </div>
+                </div>
+              </div>
+            </div>  
+        </div>
+
+
+
+<div class="image"> 
+
+
+</div>
+
+
+ 
+   
 
 
 
