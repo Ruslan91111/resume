@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'movies/base.html' %}
+{% block content %}
 
-</body>
-</html>
+<h1>Войти</h1>
+<br/><br/><br/>
+<div class="mb-3">
+    <form method="POST">
+        {% csrf_token %}
+
+<div class="mb-3">
+    <input type="text" class="form-control" name="Username" placeholder="Имя пользователя">
+</div>
+        <br/>
+  <div class="mb-3">
+    <input type="password" class="
+    form-control" name = "Password"
+    placeholder="Пароль">
+  </div>
+
+        <button class="btn btn-info">Войти</button>
+
+</div>
+</form>
+<div id="emailHelp" class="
+    form-text">Не зарегистрированы? <a href="{% url 'register_user' %}">Тогда зарегистрироваться здесь.</a></div>
+
+{% endblock %}
