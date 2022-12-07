@@ -2,8 +2,8 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
-from .forms import SignUpForm, EditProfileForm
-
+from .forms import SignUpForm, EditProfileForm, PasswordChangingForm
+from django.contrib.auth.views import PasswordChangeView
 
 # регистрация пользователей
 class UserRegisterView(CreateView):
@@ -20,3 +20,9 @@ class UserEditView(UpdateView):
 
     def get_object(self):
         return self.request.user
+
+
+# Изменение пароля юзера
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangingForm
+    success_url = reverse_lazy('password_success')

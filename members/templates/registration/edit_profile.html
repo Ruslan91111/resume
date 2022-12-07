@@ -1,10 +1,14 @@
 {% extends 'movies/base.html' %}
 
-{% block title %}Зарегистрироваться{% endblock %}
+{% block title %}Редактирование настроек профиля{% endblock %}
 {% block content %}
 
-<h1>Редактировать страницу профиля</h1>
+<h1>Редактировать настройки профиля...</h1>
 <br/><br/><br/>
+
+{{ user.profile.bio }}
+
+<br/><br/>
 
 <div class="form-group">
     <form method="POST">
