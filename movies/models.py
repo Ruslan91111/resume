@@ -42,7 +42,7 @@ class Staff(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('staff', kwargs={'post_slug': self.slug})
+        return reverse('staff', kwargs={'staff_slug': self.slug})
 
     class Meta:
         verbose_name = "Актеры и режиссеры"
@@ -83,37 +83,16 @@ class Profile(models.Model):
         return reverse('home')
 
 
-class Review(models.Model):
-    title = models.CharField(max_length=255, verbose_name='Заголовок')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='автор')
-    body = RichTextField(blank=True, null=True)
-    post_date = models.DateField(auto_now_add=True, verbose_name='дата публикации')
-    likes = models.ManyToManyField(User, related_name='movie_review', verbose_name='Нравится')
-
-
-    def total_likes(self):
-        return self.likes.count()
-
-    def __str__(self):
-        return self.title + ' | ' + str(self.author)
-
-    def get_absolute_url(self):
-        return reverse('home')
-        # return reverse('article-detail', args=(str(self.id)))
-
-
 class Comment(models.Model):
-    post = models.ForeignKey(Movies, related_name="comments", on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    body = models.TextField()
+    movie = models.ForeignKey(Movies, related_name="comments", on_delete=models.CASCADE)
+    name = models.CharField(max_length=255, verbose_name="Заголовок комментария")
+    body = models.TextField(max_length=2550, verbose_name="Текст комментария")
     date_added = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, null=True, on_delete=models.CASCADE, verbose_name='автор')
+
 
     def __str__(self):
-        return '%s - %s' % (self.post.title, self.name)
-
-
-
-
+        return '%s - %s' % (self.movie.title, self.name)
 
 
 

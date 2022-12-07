@@ -3,8 +3,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from .forms import PostReview
-from .models import Category, Movies, Review
+from .forms import CommentForm
+from .models import Category, Movies, Comment
 
 
 # отображение домашней страницы
@@ -66,19 +66,13 @@ class MovieDetailView(DetailView):
         return context
 
 
-# добавление рецензии
-class AddReview(CreateView):
-    model = Review
-    form_class = PostReview
-    template_name = 'movies/add_review.html'
-    slug_url_kwarg = 'movie_slug'
+# добавление комментария
+class AddCommentView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'movies/add_comment.html'
 
     def form_valid(self, form):
         form.instance.post_id = self.kwargs['pk']
         return super().form_valid(form)
     success_url = reverse_lazy('home')
-
-
-
-
-

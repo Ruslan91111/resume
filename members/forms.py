@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import Comment
+from .models import Review
 
 
 class RegisterUserForm(UserCreationForm):
@@ -21,30 +21,15 @@ class RegisterUserForm(UserCreationForm):
         }
 
 
-# Добавление комментария
-class CommentForm(forms.ModelForm):
+class PostReview(forms.ModelForm):
     class Meta:
-        model = Comment
-        fields = ('name', 'body')
-
+        model = Review
+        fields = ['title', 'body']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
-        }
+                }
 
 
 
 
-
-
-
-        # widgets = {
-        #     'title': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'title_tag': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'author': forms.TextInput(attrs={'class': 'form-control',
-        #                                      'value': '', 'id':'пользователь', 'type': 'hidden'}),
-        #     'category': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
-        #     'body': forms.Textarea(attrs={'class': 'form-control'}),
-        #     'snippet': forms.Textarea(attrs={'class': 'form-control'}),
-        #
-        # }

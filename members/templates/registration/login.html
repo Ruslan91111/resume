@@ -1,25 +1,30 @@
 {% extends 'movies/base.html' %}
+{% block title %}Войти.{% endblock %}
+
 {% block content %}
 
-<h1>Войти</h1>
-<br/><br/><br/>
+<h1>Войти</h1><br/><br/><br/>
+
 <div class="mb-3">
     <form method="POST">
         {% csrf_token %}
+        {{ form.as_p }}
 
-<div class="mb-3">
-    <input type="text" class="form-control" name="Username" placeholder="Имя пользователя">
+            <!-- <div class="mb-3">
+                <input type="text" class="form-control" name="Username" placeholder="Имя пользователя">
+            </div><br/>
+                
+            <div class="mb-3">
+              <input type="password" class="form-control" name = "Password" placeholder="Пароль">
+            </div> -->
+        
+            <button class="btn btn-info">Войти</button>
+    
+    </form>
 </div>
-        <br/>
-  <div class="mb-3">
-    <input type="password" class="form-control" name = "Password" placeholder="Пароль">
-  </div>
 
-        <button class="btn btn-info">Войти</button>
 
-</div>
-</form>
-<div id="emailHelp" class="
-    form-text">Не зарегистрированы? <a href="{% url 'register_user' %}">Тогда зарегистрироваться здесь.</a></div>
+
+<div id="emailHelp" class="form-text">Не зарегистрированы? <a href="{% url 'register_user' %}">Тогда зарегистрироваться здесь.</a></div>
 
 {% endblock %}

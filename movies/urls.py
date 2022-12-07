@@ -1,7 +1,7 @@
 from django.urls import path, re_path
 from django.views.decorators.cache import cache_page
 
-from .views import MoviesHome, CategoriesList, MoviesByCategories, MovieDetailView, AddReview
+from .views import MoviesHome, CategoriesList, MoviesByCategories, MovieDetailView, AddCommentView
 
 
 urlpatterns = [
@@ -9,7 +9,7 @@ urlpatterns = [
     path('categories', CategoriesList.as_view(), name='list_of_categories'),
     path('category/<slug:cat_slug>/', MoviesByCategories.as_view(), name='movies_by_category'),
     path('movies/<slug:movie_slug>', MovieDetailView.as_view(), name='detail_movie'),
-    path('movies/<slug:movie_slug>/add_review', AddReview.as_view(), name='add_post'),
+    path('movies/<int:pk>/add_comment', AddCommentView.as_view(), name='add_comment'),
 
 ]
 

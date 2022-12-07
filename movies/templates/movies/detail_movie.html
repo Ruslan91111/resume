@@ -14,6 +14,35 @@
   </div>
 
 
+  <!--секция комментариев-->
+<hr>
+<h3> Комментарии</h3>
+
+{% if not post.comments.all %}
+    Комментариев нет
+    <a href="{% url 'add_comment' movie_slug %}">Оставить комментарий</a>
+
+{% else %}
+    <a href="{% url 'add_comment' movie_slug %}">Оставить комментарий</a>
+<br/><br/>
+{% for comment in post.comments.all %}
+        <strong>
+           {{ comment.name }} -
+           {{ comment.date_added }}
+        </strong>
+        <br/>
+        {{ comment.body }}<br/><br/>
+{% endfor %}
+        <br/>
+        <a href="{% url 'add_comment' movie_slug %}"
+        >Оставить комментарий</a>
+
+{% endif %}
+
+<br/><br/>
+<!--конец секции комментариев-->
+
+
 
    
 
