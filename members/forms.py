@@ -24,6 +24,7 @@ class SignUpForm(UserCreationForm):
 
 
 class EditProfileForm(UserChangeForm):
+    pic_profile = forms.ImageField(widget=forms.FileInput, label='Фото профиля')
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя')
     last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Фамилия')

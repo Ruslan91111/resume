@@ -6,10 +6,11 @@
 <h1>Редактировать настройки профиля...</h1>
 <br/><br/><br/>
 
+{{ user.profile.profile_pic }}
 {{ user.profile.bio }}
 
 <br/><br/>
-
+ы
 <div class="form-group">
     <form method="POST">
         {% csrf_token %}

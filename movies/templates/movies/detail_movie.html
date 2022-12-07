@@ -15,15 +15,14 @@
 
 
   <!--секция комментариев-->
-<hr>
+<!-- <hr>
 <h3> Комментарии</h3>
-
 {% if not post.comments.all %}
     Комментариев нет
-    <a href="{% url 'add_comment' movie_slug %}">Оставить комментарий</a>
+    <a href="#">Оставить комментарий</a>
 
 {% else %}
-    <a href="{% url 'add_comment' movie_slug %}">Оставить комментарий</a>
+    <a href="#">Оставить комментарий</a>
 <br/><br/>
 {% for comment in post.comments.all %}
         <strong>
@@ -34,13 +33,11 @@
         {{ comment.body }}<br/><br/>
 {% endfor %}
         <br/>
-        <a href="{% url 'add_comment' movie_slug %}"
+        <a href="#"
         >Оставить комментарий</a>
-
 {% endif %}
-
 <br/><br/>
-<!--конец секции комментариев-->
+<!--конец секции комментариев--> 
 
 
 
