@@ -6,9 +6,8 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('django.contrib.auth.urls')),
     path('', include('movies.urls')),
-    path('members/', include('django.contrib.auth.urls')),
-    path('members/', include('members.urls')),
 
 ]
 

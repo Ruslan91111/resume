@@ -1,7 +1,8 @@
 from django.urls import path, re_path
 from django.views.decorators.cache import cache_page
-
-from .views import MoviesHome, CategoriesList, MoviesByCategories, MovieDetailView, AddCommentView
+from django.contrib.auth.views import PasswordChangeView
+from .views import MoviesHome, CategoriesList, MoviesByCategories, MovieDetailView, \
+    AddCommentView, UserRegisterView, UserEditView, ShowProfilePageView
 
 
 urlpatterns = [
@@ -11,7 +12,20 @@ urlpatterns = [
     path('movies/<slug:movie_slug>', MovieDetailView.as_view(), name='detail_movie'),
     path('movies/<int:pk>/add_comment', AddCommentView.as_view(), name='add_comment'),
 
+    path('register/', UserRegisterView.as_view(), name='register_user'),
+    path('edit_profile/', UserEditView.as_view(), name='edit_profile'),
+    path('password/', PasswordChangeView.as_view(template_name='registration/change-password.html')),
+    path('<int:pk>/profile/', ShowProfilePageView.as_view(), name='show_profile_page')
+
+
 ]
+
+
+
+
+
+
+
 
 # path('add_post/', AddPostView.as_view(), name='add_post'),
 # path('add_category/', AddCategoryView.as_view(), name='add_category'),
