@@ -1,0 +1,18 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}Зарегистрироваться{% endblock %}
+{% block content %}
+
+<h1>Редактировать страницу профиля</h1>
+<br/><br/><br/>
+
+<div class="form-group">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-info">Обновить профиль</button>
+    </form>
+</div>
+
+
+{% endblock %}
