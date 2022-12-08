@@ -6,10 +6,18 @@
 <br/><br/><br/>
 
 
-{{ user.profile.bio }}
-{{ user.profile.profile_pic }}
+{% if user.profile.profile_pic.url %}
+    <img src="{{ user.profile.profile_pic.url }}">
+{% else %}
+    <img src="../../static/images/profile_page.png" alt="logo-image" style="width: 250px;">
 
-<br/><br/>
+
+{% endif %}
+
+{{ user.profile.bio }}
+
+
+<br/><br/>  
 
 <div class="form-group">
     <form method="POST">
