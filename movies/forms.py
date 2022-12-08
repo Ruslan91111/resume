@@ -17,16 +17,20 @@ class CommentForm(forms.ModelForm):
 
 
 
-# РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ
+# регистрация пользователя
 class SignUpForm(UserCreationForm):
     username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя пользователя')
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    # убрал first_name и last_name, чтобы не требовало при регистрации
+    # first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя')
+    # last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Фамилия')
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Повторный ввод пароля', widget=forms.PasswordInput)
 
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['class'] = 'form-control'
@@ -35,18 +39,18 @@ class SignUpForm(UserCreationForm):
 
 
 # РЕДАКТИРОВАНИЕ СТРАНИЦЫ ПОЛЬЗОВАТЕЛЯ
-# class EditProfileForm(UserChangeForm):
-#     pic_profile = forms.ImageField(widget=forms.FileInput, label='Фото профиля')
-#     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
-#     first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя')
-#     last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Фамилия')
-#     bio = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='О себе')
-#     username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя пользователя')
-#
-#     class Meta:
-#         model = User
-#         fields = ('pic_profile', 'username', 'first_name', 'last_name',
-#                 'email', 'password', 'last_login')
+class EditProfileForm(UserChangeForm):
+    pic_profile = forms.ImageField(widget=forms.FileInput, label='Фото профиля')
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя')
+    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Фамилия')
+    bio = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='О себе')
+    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя пользователя')
+
+    class Meta:
+        model = User
+        fields = ('pic_profile', 'username', 'first_name', 'last_name',
+                'email', 'password', 'last_login')
 
 
 

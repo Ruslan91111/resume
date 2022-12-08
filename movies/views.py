@@ -1,8 +1,8 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DetailView, UpdateView
-from .forms import SignUpForm, PasswordChangingForm, CommentForm
+from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm
 from .models import Category, Movies, Comment, Profile
 from django.contrib.auth.views import PasswordChangeView
 
@@ -83,6 +83,16 @@ class UserRegisterView(CreateView):
     form_class = SignUpForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
+
+#
+class UserEditView(UpdateView):
+    form_class = EditProfileForm
+    template_name = 'registration/edit_profile.html'
+    success_url = reverse_lazy('home')
+
+    def get_object(self):
+        return self.request.user
+
 
 
 # Редактирование страницы профиля
