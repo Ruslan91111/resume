@@ -86,13 +86,22 @@ class UserRegisterView(CreateView):
 
 
 # Редактирование страницы профиля
-class UserEditView(UpdateView):
-    form_class = EditProfileForm
-    template_name = 'registration/edit_profile.html'
+class EditProfilePageView(UpdateView):
+    model = Profile
+    template_name = 'registration/edit_profile_page.html'
+    fields = ['profile_pic']
     success_url = reverse_lazy('home')
 
-    def get_object(self):
-        return self.request.user
+    def get_context_data(self, *, object_list=None, **kwargs):
+        users = Profile.objects.all()
+        context = super(EditProfilePageView, self).get_context_data(**kwargs)
+
+        page_user = get_object_or_404(Profile, id=self.kwargs['pk'])
+
+        context['page_user'] = page_user
+
+
+        return context
 
 
 # Изменение пароля юзера
@@ -104,7 +113,7 @@ class PasswordsChangeView(PasswordChangeView):
 # Показать страницу профиля
 class ShowProfilePageView(DetailView):
     model = Profile
-    template_name = 'registration/user_profile_page.html'
+    template_name = 'registration/user_profile.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         users = Profile.objects.all()
@@ -114,7 +123,6 @@ class ShowProfilePageView(DetailView):
 
         context['page_user'] = page_user
         return context
-
 
 
 

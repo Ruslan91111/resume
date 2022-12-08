@@ -3,18 +3,17 @@
 
 
 body {
-	background: linear-gradient(90deg, rgba(0, 0, 0, 0.36) 0%, #fff 100%);
-	margin: auto 0;
+	background: linear-gradient(90deg, #DCF2F5 0%, #FDFDFD 100%);
 
 
 }
 
 
+/*НАВБАР ЦВЕТ, РАЗМЕР ШРИФТА*/
 .navbar {
-	background: linear-gradient(90deg, rgba(0, 0, 0, 0.36) 0%, #fff 100%);
-	font-size: 1.5em;
+	background: linear-gradient(90deg, #DCF2F5 0%, #FDFDFD 100%);
 	font-weight: 400;
-	color: blue;
+	color: black;
 
 }
 
@@ -24,31 +23,28 @@ body {
 }
 
 
+/*ЛЕВЫЙ НАВБАР*/
+
 .left-sidebar {
-    background: radial-gradient( #AB9F9F 0%, #C3BCBC 100%);
-	font-weight: 400;
-	color: black;
+	background: linear-gradient(90deg, #DCF2F5 0%, #FDFDFD 100%);
 	list-style-type: none;
 	border: solid;
-	border-color: black;
+	border-color: grey;
 }
-
 
 .left-sidebar>li {
 	border: solid;
-	background: radial-gradient( #000000 0%, #C3BCBC 100%);
-	border-color: black;
-	border-width: 1px;
+	background: linear-gradient(90deg, #DCF2F5 0%, #FDFDFD 100%);
+	border-color: grey;
 }
-
 
 .left-sidebar>li>a {
     display: block;
-    padding: 1em;
+    padding: 5px;
     text-decoration: none;
-    color: white;
+    color: black;
     font-family: Lobster;
-    font-size: 25px;
+    font-size: 18px;
 
 }
 

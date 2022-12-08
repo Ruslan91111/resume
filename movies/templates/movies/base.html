@@ -1,5 +1,5 @@
 {% load movies_tags %}
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +17,7 @@
 <body>
 
    <header>
-   <div class="name" style="font-family: Lobster; font-size: 40px;">Panda's Movies: всё, что вы хотели бы знать о фильмах.</div>  
+   <div class="name" style="font-family: Lobster; font-size: 40px;">Какой-нибудь слоган или название сайта</div>  
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home' %}"><img src="../../static/images/logo_navbar.png" alt="logo-image"></a>
@@ -29,9 +29,7 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Все фильмы</a>
-            </li>
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 
@@ -46,16 +44,13 @@
 
        {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'show_profile_page' user.profile.id %}">Страница профиля</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'show_profile_page' user.profile.id %}">Показать страницу профиля</a>
+              <a class="nav-link" href="#">Показать страницу профиля</a>
             </li>
              <li class="nav-item">
-              <a class="nav-link" href="{% url 'edit_profile' %}">Редактировать профиль</a>
+              <a class="nav-link" href="{% url 'edit_profile_page' user.profile.id %}">Редактировать профиль</a>
             </li>
        {% else %}
             <li class="nav-item">

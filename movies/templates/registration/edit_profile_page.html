@@ -1,0 +1,28 @@
+{% extends 'movies/base.html' %}
+
+{% block title %} Редактирование страницы профиля {% endblock %}
+
+{% block content %}
+
+
+{% if user.is_authenticated %}
+    {% if user.id == profile.user.id %}
+    <h1>Редактирование страницы профиля</h1>
+    <br/><br/><br/>
+
+    <div class="form-group">
+<form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-info">Обновить страницу профиля</button>
+        </form>
+    </div>
+
+    {% else %}
+          Вы не корректный пользователь, чтобы редактировать данную страницу...
+
+    {% endif %}
+{% else %}
+        Нужно авторизоваться
+{% endif %}
+{% endblock %}
