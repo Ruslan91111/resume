@@ -84,7 +84,7 @@ class UserRegisterView(CreateView):
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
 
-#
+# отредактировать страницу юзера - пользователя
 class UserEditView(UpdateView):
     form_class = EditProfileForm
     template_name = 'registration/edit_profile.html'
@@ -116,6 +116,11 @@ class EditProfilePageView(UpdateView):
 class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangingForm
     success_url = reverse_lazy('password_success')
+
+
+# сообщение о том, что пароль успешно изменен
+def password_success(request):
+    return render(request, 'registration/password_success.html', {})
 
 
 # Показать страницу профиля
