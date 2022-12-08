@@ -53,7 +53,7 @@ class MoviesByCategories(ListView):
         return Movies.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
 
 
-# представление одного фильма
+# класс  представления одного фильма
 class MovieDetailView(DetailView):
     model = Movies
     template_name = 'movies/detail_movie.html'
@@ -88,6 +88,7 @@ class UserRegisterView(CreateView):
 # Редактирование страницы профиля
 class EditProfilePageView(UpdateView):
     model = Profile
+    # form_class = EditProfileForm
     template_name = 'registration/edit_profile_page.html'
     fields = ['profile_pic', 'first_name', 'last_name', 'bio']
     success_url = reverse_lazy('home')
@@ -97,10 +98,7 @@ class EditProfilePageView(UpdateView):
         context = super(EditProfilePageView, self).get_context_data(**kwargs)
 
         page_user = get_object_or_404(Profile, id=self.kwargs['pk'])
-
         context['page_user'] = page_user
-
-
         return context
 
 

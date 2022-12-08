@@ -72,13 +72,14 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=255, null=True, blank=True, verbose_name="Фамилия")
     email = models.EmailField(max_length=255, unique=True, null=True)
     bio = models.TextField(max_length=2055, null=True, blank=True, verbose_name="О себе")
-    profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/")
+    profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/", verbose_name="Картинка профиля")
 
     def __str__(self):
         return str(self.user)
 
     def get_absolute_url(self):
         return reverse('home')
+
 
 
 class Comment(models.Model):

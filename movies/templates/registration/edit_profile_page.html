@@ -10,9 +10,9 @@
     <h1>Редактирование страницы профиля</h1>
     <br/><br/><br/>
 
-
-{{ profile.profile_pic }}
-    
+    {% if page_user.profile_pic %}
+    <img src="{{ page_user.profile_pic.url }}">
+{% endif %}
 
     <div class="form-group">
 
@@ -30,4 +30,6 @@
 {% else %}
         Нужно авторизоваться
 {% endif %}
+
+
 {% endblock %}
