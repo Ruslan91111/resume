@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DetailView, UpdateView
-from .forms import SignUpForm, EditProfileForm, PasswordChangingForm, CommentForm
+from .forms import SignUpForm, PasswordChangingForm, CommentForm
 from .models import Category, Movies, Comment, Profile
 from django.contrib.auth.views import PasswordChangeView
 
@@ -53,7 +53,7 @@ class MoviesByCategories(ListView):
         return Movies.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
 
 
-# класс  представления одного фильма
+# представление одного фильма
 class MovieDetailView(DetailView):
     model = Movies
     template_name = 'movies/detail_movie.html'
@@ -89,7 +89,7 @@ class UserRegisterView(CreateView):
 class EditProfilePageView(UpdateView):
     model = Profile
     template_name = 'registration/edit_profile_page.html'
-    fields = ['profile_pic']
+    fields = ['profile_pic', 'first_name', 'last_name', 'bio']
     success_url = reverse_lazy('home')
 
     def get_context_data(self, *, object_list=None, **kwargs):
