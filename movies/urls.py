@@ -3,7 +3,7 @@ from django.views.decorators.cache import cache_page
 from django.contrib.auth.views import PasswordChangeView
 from .views import MoviesHome, CategoriesList, MoviesByCategories, MovieDetailView, \
     AddCommentView, UserRegisterView, EditProfilePageView, ShowProfilePageView, UserEditView, \
-    PasswordsChangeView, password_success
+    PasswordsChangeView, password_success, CreateProfilePageView
 
 
 urlpatterns = [
@@ -20,6 +20,7 @@ urlpatterns = [
     path('<int:pk>/profile/', ShowProfilePageView.as_view(), name='show_profile_page'),
 
     path('<int:pk>/edit_profile_page/', EditProfilePageView.as_view(), name='edit_profile_page'),
+    path('create_profile_page/', CreateProfilePageView.as_view(), name='create_profile_page'),
 
 ]
 

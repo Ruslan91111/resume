@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Ledger&display=swap');
+
+
+
+body {
+	background: linear-gradient(90deg, #DCF2F5 0%, #FDFDFD 100%);
+
+
+}
+
+
+/*НАВБАР ЦВЕТ, РАЗМЕР ШРИФТА*/
+.navbar {
+	background: linear-gradient(90deg, #DCF2F5 0%, #FDFDFD 100%);
+	font-weight: 400;
+	color: black;
+
+}
+
+
+.navbar-brand img {
+	width: 55px;
+}
+
+
+/*ЛЕВЫЙ НАВБАР*/
+
+.left-sidebar {
+	background: linear-gradient(90deg, #DCF2F5 0%, #FDFDFD 100%);
+	list-style-type: none;
+	border: solid;
+	border-color: grey;
+}
+
+.left-sidebar>li {
+	border: solid;
+	background: linear-gradient(90deg, #DCF2F5 0%, #FDFDFD 100%);
+	border-color: grey;
+}
+
+.left-sidebar>li>a {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    font-family: Lobster;
+    font-size: 18px;
+
+}
+
+.title-cat {
+	display: block;
+    padding: 1em;
+    text-decoration: none;
+    color: black;
+    font-family: Montserrat;
+    font-size: 40px;
+}
+
+.card-movie {
+	margin-top: 35px;
+	width: 200px;
+	height: 300px;
+	background: grey;
+	color: black;
+	border: solid;
+	border-color: black;
+
+}
+
+
+
+.card-movie .btn-primary {
+	background: radial-gradient( #AB9F9F 0%, #C3BCBC 100%);
+	font-weight: 900;
+	color: black;
+	list-style-type: none;
+	border: solid;
+	border-color: black;
+	}
+	
+	.card-movie .p {
+	background: radial-gradient( #AB9F9F 0%, #C3BCBC 100%);
+	font-weight: 900;
+	color: black;
+	list-style-type: none;
+	border: solid;
+	border-color: black;
+	}
+
+.image_detail_movie>img {
+	float: left;
+	width: 300px;
+
+}
+
+.plot-text {
+	display: flex;
+	padding: 20px;
+	font-size: 1.5em;
+}

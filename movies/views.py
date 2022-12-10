@@ -2,9 +2,21 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DetailView, UpdateView
-from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm
+from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm, ProfilePageForm
 from .models import Category, Movies, Comment, Profile
 from django.contrib.auth.views import PasswordChangeView
+
+
+# создать страницу профиля
+class CreateProfilePageView(CreateView):
+    model = Profile
+    form_class = ProfilePageForm
+    template_name = "registration/create_user_profile_page.html"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 
 # Показать страницу профиля

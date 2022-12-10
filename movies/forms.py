@@ -1,7 +1,23 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django import forms
 from django.contrib.auth.models import User
-from .models import Comment
+from .models import Comment, Profile
+
+
+# создание страницы профиля
+class ProfilePageForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio', 'profile_pic', 'first_name', 'last_name')
+        widgets = {
+
+                'bio': forms.Textarea(attrs={'class': 'form-control'}),
+                # 'profile_pic': forms.TextInput(attrs={'class': 'form-control'}),
+                'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+                'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+                'profile_pic': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
 
 
 # ДОБАВЛЕНИЕ КОММЕНТАРИЯ
@@ -40,17 +56,17 @@ class SignUpForm(UserCreationForm):
 
 # РЕДАКТИРОВАНИЕ СТРАНИЦЫ ПОЛЬЗОВАТЕЛЯ
 class EditProfileForm(UserChangeForm):
-    pic_profile = forms.ImageField(widget=forms.FileInput, label='Фото профиля')
+    pic_profile = forms.ImageField(widget=forms.FileInput, required=False, label='Фото профиля')
     # email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя')
-    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Фамилия')
-    bio = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='О себе')
-    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя пользователя')
-    last_login = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}),  label='Последнее раз был')
-    is_superuser = forms.CharField(max_length=100, widget=forms.CheckboxInput(attrs={'class': 'form-check'}), label='Является ли суперпользователем')
-    is_staff = forms.CharField(max_length=100, widget=forms.CheckboxInput(attrs={'class': 'form-check'}), label='Персонал сайта')
-    is_active = forms.CharField(max_length=100, widget=forms.CheckboxInput(attrs={'class': 'form-check'}), label='На сайте?')
-    date_joined = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Дата регистрации')
+    first_name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя')
+    last_name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Фамилия')
+    bio = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}), label='О себе')
+    # username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя пользователя')
+    # last_login = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}),  label='Последнее раз был')
+    # is_superuser = forms.CharField(max_length=100, widget=forms.CheckboxInput(attrs={'class': 'form-check'}), label='Является ли суперпользователем')
+    # is_staff = forms.CharField(max_length=100, widget=forms.CheckboxInput(attrs={'class': 'form-check'}), label='Персонал сайта')
+    # is_active = forms.CharField(max_length=100, widget=forms.CheckboxInput(attrs={'class': 'form-check'}), label='На сайте?')
+    # date_joined = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Дата регистрации')
 
     class Meta:
         model = User
