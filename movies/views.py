@@ -18,7 +18,6 @@ class CreateProfilePageView(CreateView):
         return super().form_valid(form)
 
 
-
 # Показать страницу профиля
 class ShowProfilePageView(DetailView):
     model = Profile

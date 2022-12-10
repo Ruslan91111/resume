@@ -28,6 +28,8 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          
+
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>
@@ -52,7 +54,7 @@
                 </ul>        
             </li>
       {% endif %}
-          </ul>
+        
 
 
             {% if user.is_authenticated %}
@@ -69,6 +71,7 @@
             {% endif %}
 
         </ul>
+      </ul>
 
           <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
