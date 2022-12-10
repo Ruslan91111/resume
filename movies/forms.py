@@ -12,10 +12,9 @@ class ProfilePageForm(forms.ModelForm):
         widgets = {
 
                 'bio': forms.Textarea(attrs={'class': 'form-control'}),
-                # 'profile_pic': forms.TextInput(attrs={'class': 'form-control'}),
+                # 'profile_pic': forms.ImageField(allow_empty_file=True),
                 'first_name': forms.TextInput(attrs={'class': 'form-control'}),
                 'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-                'profile_pic': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 
