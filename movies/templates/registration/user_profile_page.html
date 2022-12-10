@@ -13,49 +13,27 @@
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-2">
-{% if page_user.profile_pic %}
-    <img src="{{ page_user.profile_pic.url }}"
-           class="img-fluid rounded-start" >
-
-{% else %}
-           class="img-fluid rounded-start" >
-{% endif %}
+       {% if page_user.profile_pic %} <!-- БЛОК НА ПУСТУЮ КАРТИНКУ ПРОФАЙЛА -->
+           <img src="{{ page_user.profile_pic.url }}" class="img-fluid rounded-start">
+       {% else %}
+           <img src="../../static/images/profile_page.png" alt="profile-image" class="img-fluid rounded-start">
+       {% endif %}
     </div>
+
+
+
     <div class="col-md-10">
       <div class="card-body">
         <h5 class="card-title">
-            {{ page_user.user.first_name }}
-            {{ page_user.user.last_name }}
-        </h5>
-          <p class="small text-muted">
-
-
-          {% if page_user.website_url %}
-             <a href="{{
-              page_user.website_url ">Website</a>
-          {% endif %}
-
-          {% if  page_user.facebook_url %}
-              | <a href="{{  page_user.facebook_url ">Facebook</a>
-          {% endif %}
-
-          {% if  page_user.twitter_url %}
-              | <a href="{{  page_user.twitter_url ">Twitter</a>
-          {% endif %}
-
-          {% if page_user.instagram_url %}
-              | <a href="{{  page_user.instagram_url ">Instagram</a>
-          {% endif %}
-
-          {% if  page_user.pinterest_url %}
-              | <a href="{{  page_user.pinterest_url ">Pinterest</a>
-          {% endif %}
-
-          </p>
+          <p>Имя пользователя: {{ user.profile.user }}</p> 
+          <p>Email: {{ user.profile.email }}</p>
+          <p>Имя: {{ user.profile.first_name }}</p>
+          <p>Фамилия: {{ user.profile.last_name }}</p>
+        
         <p class="card-text">
-            {{  page_user.bio }}
-
+            <h5>О себе: </h5> {{ user.profile.bio }}
         </p>
+      
       </div>
     </div>
   </div>
