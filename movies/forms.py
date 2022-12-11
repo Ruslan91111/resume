@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from .models import Comment, Profile
 
 
-# создание страницы профиля
-class ProfilePageForm(forms.ModelForm):
+
+class ProfilePageForm(forms.ModelForm):  # создание страницы профиля
     class Meta:
         model = Profile
         fields = ('bio', 'profile_pic', 'first_name', 'last_name')
@@ -18,22 +18,18 @@ class ProfilePageForm(forms.ModelForm):
         }
 
 
-
-# ДОБАВЛЕНИЕ КОММЕНТАРИЯ
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'body')
+        fields = ('title', 'body')
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
 
-
-# регистрация пользователя
-class SignUpForm(UserCreationForm):
+class SignUpForm(UserCreationForm):  # регистрация пользователя
     username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя пользователя')
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     # убрал first_name и last_name, чтобы не требовало при регистрации
@@ -53,8 +49,7 @@ class SignUpForm(UserCreationForm):
         self.fields['password2'].widget.attrs['class'] = 'form-control'
 
 
-# РЕДАКТИРОВАНИЕ СТРАНИЦЫ ПОЛЬЗОВАТЕЛЯ
-class EditProfileForm(UserChangeForm):
+class EditProfileForm(UserChangeForm):  # РЕДАКТИРОВАНИЕ СТРАНИЦЫ ПОЛЬЗОВАТЕЛЯ
     pic_profile = forms.ImageField(widget=forms.FileInput, required=False, label='Фото профиля')
     # email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя')
@@ -72,8 +67,7 @@ class EditProfileForm(UserChangeForm):
         fields = ('pic_profile', 'username', 'first_name', 'last_name', 'password')
 
 
-# ИЗМЕНЕНИЕ ПАРОЛЯ
-class PasswordChangingForm(PasswordChangeForm):
+class PasswordChangingForm(PasswordChangeForm):  # ИЗМЕНЕНИЕ ПАРОЛЯ
     old_password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}), label='Старый пароль')
     new_password1 = forms.CharField(max_length=100, widget=forms.PasswordInput(

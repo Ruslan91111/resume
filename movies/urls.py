@@ -11,16 +11,16 @@ urlpatterns = [
     path('categories', CategoriesList.as_view(), name='list_of_categories'),
     path('category/<slug:cat_slug>/', MoviesByCategories.as_view(), name='movies_by_category'),
     path('movies/<slug:movie_slug>', MovieDetailView.as_view(), name='detail_movie'),
-    path('movies/<int:pk>/add_comment', AddCommentView.as_view(), name='add_comment'),
-    path('register/', UserRegisterView.as_view(), name='register_user'),
-    path('edit_profile/', UserEditView.as_view(), name='edit_profile'),
-    path('password/', PasswordsChangeView.as_view(template_name='registration/change-password.html')),
-    path('password_success/', password_success, name='password_success'),
+    path('movies/<int:pk>/comment', AddCommentView.as_view(), name='add_comment'),  # Добавить к фильму комментарий
 
-    path('<int:pk>/profile/', ShowProfilePageView.as_view(), name='show_profile_page'),
 
-    path('<int:pk>/edit_profile_page/', EditProfilePageView.as_view(), name='edit_profile_page'),
-    path('create_profile_page/', CreateProfilePageView.as_view(), name='create_profile_page'),
+    path('register/', UserRegisterView.as_view(), name='register_user'),  # регистрация пользователя
+    path('edit_profile/', UserEditView.as_view(), name='edit_profile'),  # редактирование настроек профиля
+    path('password/', PasswordsChangeView.as_view(template_name='registration/change-password.html')),  # изменение пароля
+    path('password_success/', password_success, name='password_success'),  # для переадресации в случае успешного изменения пароля
+    path('<int:pk>/profile/', ShowProfilePageView.as_view(), name='show_profile_page'),  # показать профиль пользователя
+    path('create_profile_page/', CreateProfilePageView.as_view(), name='create_profile_page'),  # создание страницы профиля
+    path('<int:pk>/edit_profile_page/', EditProfilePageView.as_view(), name='edit_profile_page'),  # редактирование профиля
 
 ]
 

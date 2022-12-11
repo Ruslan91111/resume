@@ -1,42 +1,45 @@
-{% extends 'movies/base.html' %}
+<!-- Показывает информацию об одном фильме -->
 
+{% extends 'movies/base.html' %}
 {% block content %}
 
 <div class="title-cat"><h1>{{ detail_movie.title }}</h1></div>
 
-
-  <div class="image_detail_movie">
-    <img src="{{ detail_movie.photo.url }}" class="card-img-top" alt="Pictures"></a>
-  </div>
-
-  <div class="plot-text">
-    {{ detail_movie.plot }}
-  </div>
+    <div class="image_detail_movie">
+      <img src="{{ detail_movie.photo.url }}" class="card-img-top" alt="Pictures"></a>
+    </div>
+  
+    <div class="plot-text">
+      {{ detail_movie.plot }}
+    </div>
 
 
   <!--секция комментариев-->
-<!-- <hr>
+<hr>
 <h3> Комментарии</h3>
-{% if not post.comments.all %}
+{% if not detail_movie.comments.all %}
     Комментариев нет
-    <a href="#">Оставить комментарий</a>
+    <a href="{% url 'add_comment' detail_movie.pk %}">Оставить комментарий</a>
 
 {% else %}
     <a href="#">Оставить комментарий</a>
 <br/><br/>
-{% for comment in post.comments.all %}
+{% for comment in detail_movie.comments.all %}
         <strong>
            {{ comment.name }} -
            {{ comment.date_added }}
         </strong>
         <br/>
         {{ comment.body }}<br/><br/>
-{% endfor %}
+
         <br/>
-        <a href="#"
-        >Оставить комментарий</a>
+        <a href="{% url 'add_comment' detail_movie.pk %}">Оставить комментарий</a>
+
+
+        {% endfor %}
 {% endif %}
 <br/><br/>
+
 <!--конец секции комментариев--> 
 
 

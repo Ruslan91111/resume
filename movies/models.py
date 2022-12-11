@@ -81,17 +81,15 @@ class Profile(models.Model):
         return reverse('home')
 
 
-
 class Comment(models.Model):
-    movie = models.ForeignKey(Movies, related_name="comments", on_delete=models.CASCADE)
-    name = models.CharField(max_length=255, verbose_name="Заголовок комментария")
+    movies = models.ForeignKey(Movies, related_name="comments", on_delete=models.CASCADE)
+    title = models.CharField(max_length=255, null=True, blank=True, verbose_name="Заголовок комментария")
     body = models.TextField(max_length=2550, verbose_name="Текст комментария")
     date_added = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, null=True, on_delete=models.CASCADE, verbose_name='автор')
 
-
     def __str__(self):
-        return '%s - %s' % (self.movie.title, self.name)
+        return '%s - %s' % (self.movie.title, self.title)
 
 
 

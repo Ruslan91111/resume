@@ -7,8 +7,20 @@ from .models import Category, Movies, Comment, Profile
 from django.contrib.auth.views import PasswordChangeView
 
 
-# создать страницу профиля
-class CreateProfilePageView(CreateView):
+
+class AddCommentView(CreateView):  # добавить комментарий
+    model = Comment
+    form_class = CommentForm
+    template_name = 'add_comment.html'
+
+    def form_valid(self, form):
+        form.instance.movies_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('home')
+
+
+class CreateProfilePageView(CreateView):  # создать страницу профиля
     model = Profile
     form_class = ProfilePageForm
     template_name = "registration/create_user_profile_page.html"
@@ -18,8 +30,7 @@ class CreateProfilePageView(CreateView):
         return super().form_valid(form)
 
 
-# Показать страницу профиля
-class ShowProfilePageView(DetailView):
+class ShowProfilePageView(DetailView):  # Показать страницу профиля
     model = Profile
     template_name = 'registration/user_profile_page.html'
 
@@ -32,9 +43,7 @@ class ShowProfilePageView(DetailView):
         return context
 
 
-
-# отображение домашней страницы
-class MoviesHome(ListView):
+class MoviesHome(ListView):  # отображение домашней страницы
     model = Movies
     template_name = "movies/home.html"
     context_object_name = 'all_movies'
@@ -49,8 +58,7 @@ class MoviesHome(ListView):
         return Movies.objects.filter(is_published=True)
 
 
-# отображение списка категорий
-class CategoriesList(ListView):
+class CategoriesList(ListView):  # отображение списка категорий
     model = Category
     template_name = "movies/list_of_categories.html"
     context_object_name = 'all_categories'
@@ -62,8 +70,7 @@ class CategoriesList(ListView):
         return context
 
 
-# отображение фильмов определнной категории
-class MoviesByCategories(ListView):
+class MoviesByCategories(ListView):  # отображение фильмов определнной категории
     model = Movies
     template_name = "movies/movies_by_category.html"
     context_object_name = 'movies_by_category'
@@ -79,39 +86,24 @@ class MoviesByCategories(ListView):
         return Movies.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
 
 
-# класс  представления одного фильма
-class MovieDetailView(DetailView):
+class MovieDetailView(DetailView):  # класс представления одного фильма
     model = Movies
     template_name = 'movies/detail_movie.html'
     slug_url_kwarg = 'movie_slug'
     context_object_name = 'detail_movie'
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
 
-# добавление комментария
-class AddCommentView(CreateView):
-    model = Comment
-    form_class = CommentForm
-    template_name = 'movies/add_comment.html'
-
-    def form_valid(self, form):
-        form.instance.post_id = self.kwargs['pk']
-        return super().form_valid(form)
-    success_url = reverse_lazy('home')
-
-
-# регистрация пользователей
-class UserRegisterView(CreateView):
+class UserRegisterView(CreateView):  # регистрация пользователей
     form_class = SignUpForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
 
-# отредактировать страницу юзера - пользователя
-class UserEditView(UpdateView):
+
+class UserEditView(UpdateView):  # отредактировать страницу юзера - пользователя
     form_class = EditProfileForm
     template_name = 'registration/edit_profile.html'
     success_url = reverse_lazy('home')
@@ -120,8 +112,8 @@ class UserEditView(UpdateView):
         return self.request.user
 
 
-# Редактирование страницы профиля
-class EditProfilePageView(UpdateView):
+
+class EditProfilePageView(UpdateView):  # Редактирование страницы профиля
     model = Profile
     # form_class = EditProfileForm
     template_name = 'registration/edit_profile_page.html'
