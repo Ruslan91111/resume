@@ -15,12 +15,16 @@ class Movies(models.Model):
     time_update = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
     is_published = models.BooleanField(default=True, verbose_name="Публикация")
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name="Категория")
+    likes = models.ManyToManyField(User, related_name='movie_like', verbose_name='Нравится')
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('detail_movie', kwargs={'movie_slug': self.slug})
+
+    def total_likes(self):
+        return self.likes.count()
 
     class Meta:
         verbose_name = "Фильмы"
