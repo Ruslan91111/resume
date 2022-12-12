@@ -20,10 +20,11 @@
 {% if not detail_movie.comments.all %}
     Комментариев нет
     <a href="{% url 'add_comment' detail_movie.pk %}">Оставить комментарий</a>
-
 {% else %}
-    <a href="#">Оставить комментарий</a>
+    <a href="{% url 'add_comment' detail_movie.pk %}">Оставить комментарий</a>
 <br/><br/>
+
+
 {% for comment in detail_movie.comments.all %}
         <strong>
            {{ comment.name }} -
@@ -35,7 +36,6 @@
         {{ comment.body }}<br/><br/>
 
         <br/>
-        <a href="{% url 'add_comment' detail_movie.pk %}">Оставить комментарий</a>
 
 
         {% endfor %}

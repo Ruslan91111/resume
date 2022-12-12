@@ -7,7 +7,6 @@ from .models import Category, Movies, Comment, Profile
 from django.contrib.auth.views import PasswordChangeView
 
 
-
 class AddCommentView(CreateView):  # добавить комментарий
     model = Comment
     form_class = CommentForm
@@ -15,10 +14,22 @@ class AddCommentView(CreateView):  # добавить комментарий
 
     def form_valid(self, form):
         form.instance.movies_id = self.kwargs['pk']
-        form.instance.author = self.request.user
+        form.instance.movies_id = self.kwargs['pk']
+
+        form.instance.author = self.request.user       # передача автора комментария
         return super().form_valid(form)
 
-    success_url = reverse_lazy('home')
+    def get_success_url(self):
+        current_page = self.kwargs['pk']
+        return reverse_lazy('detail_movie', kwargs={'pk': current_page})
+
+    # success_url = reverse_lazy('comment_success')
+
+
+
+
+def comment_success(request):         # сообщение о том, что комментарий добавлен
+    return render(request, 'movies/comment_success.html', {})
 
 
 class CreateProfilePageView(CreateView):  # создать страницу профиля
@@ -130,14 +141,12 @@ class EditProfilePageView(UpdateView):  # Редактирование стра�
         return context
 
 
-# Изменение пароля юзера
-class PasswordsChangeView(PasswordChangeView):
+class PasswordsChangeView(PasswordChangeView):          # Изменение пароля юзера
     form_class = PasswordChangingForm
     success_url = reverse_lazy('password_success')
 
 
-# сообщение о том, что пароль успешно изменен
-def password_success(request):
+def password_success(request):                     # сообщение о том, что пароль успешно изменен
     return render(request, 'registration/password_success.html', {})
 
 
