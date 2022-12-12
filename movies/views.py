@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, DetailView, U
 from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm, ProfilePageForm
 from .models import Category, Movies, Comment, Profile
 from django.contrib.auth.views import PasswordChangeView
+from django.forms.models import model_to_dict
 
 
 class AddCommentView(CreateView):  # добавить комментарий
@@ -18,16 +19,11 @@ class AddCommentView(CreateView):  # добавить комментарий
         return super().form_valid(form)
 
     def get_success_url(self):
-        current_page = self.kwargs['pk']
-        return reverse_lazy('detail_movie', kwargs={'pk': current_page})
+        # перевод queryset в словарь из одной пары ключ - значение: 'slug':''
+        list_out_of_queryset = dict(current_page=Movies.objects.filter(pk=self.kwargs['pk']).values('slug'))
+        needed_slug = list_out_of_queryset['current_page'][0]['slug']      # вытягиваем нужный slug
 
-    # success_url = reverse_lazy('comment_success')
-
-
-
-
-def comment_success(request):         # сообщение о том, что комментарий добавлен
-    return render(request, 'movies/comment_success.html', {})
+        return reverse_lazy('detail_movie', kwargs={'movie_slug': needed_slug})
 
 
 class CreateProfilePageView(CreateView):  # создать страницу профиля

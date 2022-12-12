@@ -3,16 +3,16 @@ from django.views.decorators.cache import cache_page
 from django.contrib.auth.views import PasswordChangeView
 from .views import MoviesHome, CategoriesList, MoviesByCategories, MovieDetailView, \
     AddCommentView, UserRegisterView, EditProfilePageView, ShowProfilePageView, UserEditView, \
-    PasswordsChangeView, password_success, CreateProfilePageView, comment_success
+    PasswordsChangeView, password_success, CreateProfilePageView
 
 
 urlpatterns = [
     path('', MoviesHome.as_view(), name='home'),
     path('categories', CategoriesList.as_view(), name='list_of_categories'),
     path('category/<slug:cat_slug>/', MoviesByCategories.as_view(), name='movies_by_category'),
-    path('movies/<int:pk>', MovieDetailView.as_view(), name='detail_movie'),
+    path('movies/<slug:movie_slug>', MovieDetailView.as_view(), name='detail_movie'),
     path('movies/<int:pk>/comment', AddCommentView.as_view(), name='add_comment'),  # Добавить к фильму комментарий
-    path('comment_success/', comment_success, name='comment_success'),  # для переадресации при добавлении комментария
+    # path('comment_success/', comment_success, name='comment_success'),  # для переадресации при добавлении комментария
 
 
     path('register/', UserRegisterView.as_view(), name='register_user'),  # регистрация пользователя
