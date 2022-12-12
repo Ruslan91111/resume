@@ -10,7 +10,7 @@ urlpatterns = [
     path('', MoviesHome.as_view(), name='home'),
     path('categories', CategoriesList.as_view(), name='list_of_categories'),
     path('category/<slug:cat_slug>/', MoviesByCategories.as_view(), name='movies_by_category'),
-    path('movies/<slug:movie_slug>', MovieDetailView.as_view(), name='detail_movie'),
+    path('movies/<int:pk>', MovieDetailView.as_view(), name='detail_movie'),
     path('movies/<int:pk>/comment', AddCommentView.as_view(), name='add_comment'),  # Добавить к фильму комментарий
     path('comment_success/', comment_success, name='comment_success'),  # для переадресации при добавлении комментария
 

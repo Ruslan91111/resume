@@ -14,8 +14,6 @@ class AddCommentView(CreateView):  # добавить комментарий
 
     def form_valid(self, form):
         form.instance.movies_id = self.kwargs['pk']
-        form.instance.movies_id = self.kwargs['pk']
-
         form.instance.author = self.request.user       # передача автора комментария
         return super().form_valid(form)
 
