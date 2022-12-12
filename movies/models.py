@@ -15,7 +15,6 @@ class Movies(models.Model):
     time_update = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
     is_published = models.BooleanField(default=True, verbose_name="Публикация")
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name="Категория")
-    likes = models.ManyToManyField(User, related_name='movie_like', verbose_name='Нравится')
 
     def __str__(self):
         return self.title
@@ -23,13 +22,36 @@ class Movies(models.Model):
     def get_absolute_url(self):
         return reverse('detail_movie', kwargs={'movie_slug': self.slug})
 
-    def total_likes(self):
-        return self.likes.count()
-
     class Meta:
         verbose_name = "Фильмы"
         verbose_name_plural = "Фильмы"
         ordering = ['?']
+
+
+class UserMovieRelations(models.Model):
+    RATE_CHOICES = (
+        (1, 'Ok'),
+        (2, 'Poor'),
+        (3, 'Satisfactory'),
+        (4, 'Good'),
+        (5, 'Excellent'),
+    )
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
+    movie = models.ForeignKey(Movies, on_delete=models.CASCADE, verbose_name="Фильм")
+    like = models.BooleanField(default=False)
+    in_bookmarks = models.BooleanField(default=False)
+    rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
+
+    def __str__(self):
+        return f"{self.user.username}: {self.movie}, {self.rate}"
+
+
+    class Meta:
+        verbose_name = "Отношения фильм пользователь"
+        verbose_name_plural = "Отношения фильм пользователь"
+        ordering = ['?']
+
 
 
 class Staff(models.Model):

@@ -8,21 +8,6 @@ from django.contrib.auth.views import PasswordChangeView
 from django.forms.models import model_to_dict
 
 
-def like_movie_view(request, pk):         # выставить фильму like/dislike
-    movie = get_object_or_404(Movies, id=request.POST.get('detail_movie_id'))
-    liked = False
-    if movie.likes.filter(id=request.user.id).exists():
-        movie.likes.remove(request.user)
-        liked = False
-    else:
-        movie.likes.add(request.user)
-        liked = True
-
-            # page_user = get_object_or_404(Profile, id=self.kwargs['pk'])
-            # context['page_user'] = page_user
-            # return context
-
-
 class AddCommentView(CreateView):  # добавить комментарий
     model = Comment
     form_class = CommentForm
@@ -115,9 +100,6 @@ class MovieDetailView(DetailView):  # класс представления од
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        stuff = get_object_or_404(Movies, id=self.kwargs['pk'])
-        total_likes = stuff.total_likes()
-        context["total_likes"] = total_likes
         return context
 
 
