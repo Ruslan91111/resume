@@ -11,10 +11,11 @@ from django.contrib.auth.views import PasswordChangeView
 class AddCommentView(CreateView):  # добавить комментарий
     model = Comment
     form_class = CommentForm
-    template_name = 'add_comment.html'
+    template_name = 'movies/add_comment.html'
 
     def form_valid(self, form):
         form.instance.movies_id = self.kwargs['pk']
+        form.instance.author = self.request.user
         return super().form_valid(form)
 
     success_url = reverse_lazy('home')

@@ -27,6 +27,8 @@
 {% for comment in detail_movie.comments.all %}
         <strong>
            {{ comment.name }} -
+           
+           {{ comment.author }} at
            {{ comment.date_added }}
         </strong>
         <br/>
