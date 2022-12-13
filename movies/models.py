@@ -5,7 +5,6 @@ from datetime import datetime, date
 from ckeditor.fields import RichTextField
 
 
-
 class Movies(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название фильма")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
@@ -15,6 +14,7 @@ class Movies(models.Model):
     time_update = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
     is_published = models.BooleanField(default=True, verbose_name="Публикация")
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name="Категория")
+    watchers = models.ManyToManyField(User, through="UserMovieRelations", related_name="my_movies")
 
     def __str__(self):
         return self.title
@@ -44,7 +44,7 @@ class UserMovieRelations(models.Model):
     rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
 
     def __str__(self):
-        return f"{self.user.username}: {self.movie}, {self.rate}"
+        return f"{self.user.username}: {self.movie.title}, оценка {self.rate}"
 
 
     class Meta:
