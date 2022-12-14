@@ -15,9 +15,9 @@ from .serializers import MoviesSerializer
 #отвечает за обработку get запросов, когда на вход сервера
 # будут поступать get запросы автоматически будут вызываться get запросы,
 # которые мы определяем в этом View
-class MoviesAPIView(APIView):
-    def get(self, request):
-        return Response({'title': 'terminator'})
+# class MoviesAPIView(APIView):
+#     def get(self, request):
+#         return Response({'title': 'terminator'})
 
 
 # class MoviesViewSet(ModelViewSet):
