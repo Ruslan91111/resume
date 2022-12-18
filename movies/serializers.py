@@ -1,6 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-
-from .models import Movies
+from .models import Movies, UserMovieRelations
 
 
 class MoviesSerializer(ModelSerializer):
@@ -9,6 +8,9 @@ class MoviesSerializer(ModelSerializer):
         fields = '__all__'
 
 
+class UserMoviesRelationsSerializer(ModelSerializer):
+    class Meta:
+        model = UserMovieRelations
+        fields = ('movie', 'like', 'in_bookmarks', 'rate')
 
 
-# Comment Profile Category Staff UserMovieRelations

@@ -1,29 +1,24 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, DetailView, UpdateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
+from .serializers import MoviesSerializer, UserMoviesRelationsSerializer
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from rest_framework.mixins import UpdateModelMixin
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import GenericViewSet
 
 from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm, ProfilePageForm
-from .models import Category, Movies, Comment, Profile
+from .models import Category, Movies, Comment, Profile, UserMovieRelations
 from django.contrib.auth.views import PasswordChangeView
 
-from .serializers import MoviesSerializer
 
-#отвечает за обработку get запросов, когда на вход сервера
-# будут поступать get запросы автоматически будут вызываться get запросы,
-# которые мы определяем в этом View
-# class MoviesAPIView(APIView):
-#     def get(self, request):
-#         return Response({'title': 'terminator'})
-
-
-# class MoviesViewSet(ModelViewSet):
-#     queryset = Movies.objects.all()
-#     serializer_class = MoviesSerializer
-
+class UserMoviesRelationsView(UpdateModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = UserMovieRelations.objects.all()
+    serializer_class = UserMoviesRelationsSerializer
+    lookup_field = 'movie'
 
 
 class AddCommentView(CreateView):  # добавить комментарий
