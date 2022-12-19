@@ -7,8 +7,8 @@ from rest_framework.routers import SimpleRouter
 from . import settings
 
 
-router = SimpleRouter()
-# router.register(r'movies', MoviesViewSet)
+# router = SimpleRouter()
+# # router.register(r'movies', MoviesViewSet)
 
 
 urlpatterns = [

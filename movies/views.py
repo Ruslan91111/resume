@@ -7,11 +7,19 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm, ProfilePageForm
 from .models import Category, Movies, Comment, Profile, UserMovieRelations
 from django.contrib.auth.views import PasswordChangeView
+
+
+class MovieViewSet(ModelViewSet):
+    """
+    First ViewSet, for training
+    """
+    queryset = Movies.objects.all()
+    serializer_class = MoviesSerializer
 
 
 class UserMoviesRelationsView(UpdateModelMixin, GenericViewSet):

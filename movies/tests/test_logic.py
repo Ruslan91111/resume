@@ -1,11 +1,12 @@
-import os
+"""
+Полностью тестовый тестовый файл, подлежит удалению
+"""
+from django.test import TestCase
+from ..logic import operations
 
+import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'configuration.settings')
 
-
-from django.test import TestCase
-
-from ..logic import operations
 
 
 class LogicTestCase(TestCase):
@@ -20,6 +21,7 @@ class LogicTestCase(TestCase):
     def test_multiply(self):
         result = operations(26, 7, '*')
         self.assertEqual(182, result)
+
 
 
 
