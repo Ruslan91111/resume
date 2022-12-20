@@ -82,6 +82,8 @@ WSGI_APPLICATION = 'configuration.wsgi.application'
 #     }
 # }
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -145,7 +147,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 REST_FRAMEWORK = {
-    # Используйте стандартные Django  `django.contrib.auth` разрешения,
+    # Используйте стандартные Django  'django.contrib.auth`'разрешения,
     # или разрешите доступ только для чтения для неаутентифицированных пользователей.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'

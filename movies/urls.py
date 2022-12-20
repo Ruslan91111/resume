@@ -5,17 +5,12 @@ from rest_framework.routers import SimpleRouter
 
 from .views import MoviesHome, CategoriesList, MoviesByCategories, MovieDetailView, \
     AddCommentView, UserRegisterView, EditProfilePageView, ShowProfilePageView, UserEditView, \
-    PasswordsChangeView, password_success, CreateProfilePageView, UserMovieRelations, MovieViewSet
+    PasswordsChangeView, password_success, CreateProfilePageView, UserMovieRelations
 
-router = SimpleRouter()
-router.register(r'movie', MovieViewSet)
 
 urlpatterns = [
     path('', MoviesHome.as_view(), name='home'),
     path('categories', CategoriesList.as_view(), name='list_of_categories'),
-
-    # path('movies_list/', MovieViewSet, name='movies-list'),  # для тестирования unittest
-
     path('category/<slug:cat_slug>/', MoviesByCategories.as_view(), name='movies_by_category'),
     path('movies/<slug:movie_slug>', MovieDetailView.as_view(), name='detail_movie'),
     path('movies/<int:pk>/comment', AddCommentView.as_view(), name='add_comment'),  # Добавить к фильму комментарий
@@ -33,12 +28,7 @@ urlpatterns = [
 
 ]
 
-urlpatterns += router.urls
-
-
-
-
-
+# urlpatterns += router.urls
 
 # path('add_post/', AddPostView.as_view(), name='add_post'),
 # path('add_category/', AddCategoryView.as_view(), name='add_category'),

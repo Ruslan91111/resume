@@ -14,12 +14,6 @@ from .models import Category, Movies, Comment, Profile, UserMovieRelations
 from django.contrib.auth.views import PasswordChangeView
 
 
-class MovieViewSet(ModelViewSet):
-    """
-    First ViewSet, for training
-    """
-    queryset = Movies.objects.all()
-    serializer_class = MoviesSerializer
 
 
 class UserMoviesRelationsView(UpdateModelMixin, GenericViewSet):
