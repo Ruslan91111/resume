@@ -108,6 +108,7 @@ class Profile(models.Model):
 
 
 class Comment(models.Model):
+    """Комментарии к фильму"""
     movies = models.ForeignKey(Movies, related_name="comments", on_delete=models.CASCADE)
     title = models.CharField(max_length=255, null=True, blank=True, verbose_name="Заголовок комментария")
     body = models.TextField(max_length=2550, verbose_name="Текст комментария")
@@ -117,6 +118,33 @@ class Comment(models.Model):
     def __str__(self):
         return '%s - %s' % (self.movie.title, self.title)
 
+
+class RatingStar(models.Model):
+    """Звезды рейтинга"""
+    value = models.SmallIntegerField("Значение", default=0)
+
+    def __str__(self):
+        return f'{self.value}'
+
+    class Meta:
+        verbose_name = "Звезда рейтинга"
+        verbose_name_plural = "Звезды рейтинга"
+        ordering = ['-value']
+
+
+class Rating(models.Model):
+    """Рейтинг"""
+    ip = models.CharField("IP адрес", max_length=15)
+    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
+    movie = models.ForeignKey(Movies, on_delete=models.CASCADE, verbose_name="фильм")
+
+
+    def __str__(self):
+        return f"{self.star} - {self.movie}"
+
+    class Meta:
+        verbose_name = "Рейтинг фильма"
+        verbose_name_plural = "Рейтинги фильма"
 
 
 

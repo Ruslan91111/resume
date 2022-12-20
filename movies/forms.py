@@ -5,7 +5,10 @@ from .models import Comment, Profile
 
 
 
-class ProfilePageForm(forms.ModelForm):  # создание страницы профиля
+class ProfilePageForm(forms.ModelForm):
+    """
+    Создание страницы профиля.
+    """
     class Meta:
         model = Profile
         fields = ('bio', 'profile_pic', 'first_name', 'last_name')
@@ -19,6 +22,9 @@ class ProfilePageForm(forms.ModelForm):  # создание страницы п�
 
 
 class CommentForm(forms.ModelForm):
+    """
+    Создание комментария.
+    """
     class Meta:
         model = Comment
         fields = ('title', 'body')
@@ -29,7 +35,10 @@ class CommentForm(forms.ModelForm):
         }
 
 
-class SignUpForm(UserCreationForm):  # регистрация пользователя
+class SignUpForm(UserCreationForm):
+    """
+    Форма регистрации пользователя на сайте.
+    """
     username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя пользователя')
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     # убрал first_name и last_name, чтобы не требовало при регистрации
@@ -49,7 +58,10 @@ class SignUpForm(UserCreationForm):  # регистрация пользоват
         self.fields['password2'].widget.attrs['class'] = 'form-control'
 
 
-class EditProfileForm(UserChangeForm):  # РЕДАКТИРОВАНИЕ СТРАНИЦЫ ПОЛЬЗОВАТЕЛЯ
+class EditProfileForm(UserChangeForm):
+    """
+    Форма редактирования страницы пользователя.
+    """
     pic_profile = forms.ImageField(widget=forms.FileInput, required=False, label='Фото профиля')
     # email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     first_name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}), label='Имя')
@@ -67,7 +79,10 @@ class EditProfileForm(UserChangeForm):  # РЕДАКТИРОВАНИЕ СТРА�
         fields = ('pic_profile', 'username', 'first_name', 'last_name', 'password')
 
 
-class PasswordChangingForm(PasswordChangeForm):  # ИЗМЕНЕНИЕ ПАРОЛЯ
+class PasswordChangingForm(PasswordChangeForm):
+    """
+    Форма изменения пароля.
+    """
     old_password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}), label='Старый пароль')
     new_password1 = forms.CharField(max_length=100, widget=forms.PasswordInput(
@@ -78,4 +93,7 @@ class PasswordChangingForm(PasswordChangeForm):  # ИЗМЕНЕНИЕ ПАРОЛ
     class Meta:
         model = User
         fields = ('old_password', 'new_password1', 'new_password2')
+
+
+
 

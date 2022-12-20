@@ -14,6 +14,28 @@
     </div>
 
 
+
+<form action="{% url 'like_movie' detail_movie.pk %}" method="POST">
+    {% csrf_token %}
+      {% if user.is_authenticated %}
+
+          {% if liked %}
+              <button type="submit", name="detail_movie_id", value = "{{ detail_movie.id }}", class="btn btn-danger btn-sm">Не нравится</button>
+          {% else %}
+              <button type="submit", name="detail_movie_id", value = "{{ detail_movie.id }}", class="btn btn-primary btn-sm">Нравится</button>
+          {% endif %}
+    
+      {% else %}
+    
+        <small><a href="{% url 'login' %}">Войти</a></small>
+      {% endif %}
+         
+   - {{ total_likes }} Likes
+</form>
+
+
+
+
   <!--секция комментариев-->
 <hr>
 <h3> Комментарии</h3>
@@ -23,8 +45,6 @@
 {% else %}
     <a href="{% url 'add_comment' detail_movie.pk %}">Оставить комментарий</a>
 <br/><br/>
-
-
 {% for comment in detail_movie.comments.all %}
         <strong>
            {{ comment.name }} -
@@ -41,7 +61,6 @@
         {% endfor %}
 {% endif %}
 <br/><br/>
-
 <!--конец секции комментариев--> 
 
 
