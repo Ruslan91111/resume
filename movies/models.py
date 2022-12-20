@@ -116,7 +116,7 @@ class Comment(models.Model):
     author = models.ForeignKey(User, null=True, on_delete=models.CASCADE, verbose_name='автор')
 
     def __str__(self):
-        return '%s - %s' % (self.movie.title, self.title)
+        return '%s - %s' % (self.movies.title, self.title)
 
 
 class RatingStar(models.Model):
@@ -129,7 +129,7 @@ class RatingStar(models.Model):
     class Meta:
         verbose_name = "Звезда рейтинга"
         verbose_name_plural = "Звезды рейтинга"
-        ordering = ['-value']
+        # ordering = ['value']
 
 
 class Rating(models.Model):
