@@ -9,11 +9,9 @@ from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
-from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm, ProfilePageForm
+from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm, ProfilePageForm, RatingForm
 from .models import Category, Movies, Comment, Profile, UserMovieRelations
 from django.contrib.auth.views import PasswordChangeView
-
-
 
 
 class UserMoviesRelationsView(UpdateModelMixin, GenericViewSet):
@@ -23,7 +21,10 @@ class UserMoviesRelationsView(UpdateModelMixin, GenericViewSet):
     lookup_field = 'movie'
 
 
-class AddCommentView(CreateView):  # добавить комментарий
+class AddCommentView(CreateView):
+    """
+    Добавить комментарий
+    """
     model = Comment
     form_class = CommentForm
     template_name = 'movies/add_comment.html'
@@ -41,7 +42,10 @@ class AddCommentView(CreateView):  # добавить комментарий
         return reverse_lazy('detail_movie', kwargs={'movie_slug': needed_slug})
 
 
-class CreateProfilePageView(CreateView):  # создать страницу профиля
+class CreateProfilePageView(CreateView):
+    """
+    Создать страницу профиля
+    """
     model = Profile
     form_class = ProfilePageForm
     template_name = "registration/create_user_profile_page.html"
@@ -51,7 +55,10 @@ class CreateProfilePageView(CreateView):  # создать страницу пр
         return super().form_valid(form)
 
 
-class ShowProfilePageView(DetailView):  # Показать страницу профиля
+class ShowProfilePageView(DetailView):
+    """
+    Показать страницу профиля.
+    """
     model = Profile
     template_name = 'registration/user_profile_page.html'
 
@@ -64,7 +71,10 @@ class ShowProfilePageView(DetailView):  # Показать страницу пр
         return context
 
 
-class MoviesHome(ListView):  # отображение домашней страницы
+class MoviesHome(ListView):
+    """
+    Отобразить домашнюю страницу
+    """
     model = Movies
     template_name = "movies/home.html"
     context_object_name = 'all_movies'
@@ -79,7 +89,8 @@ class MoviesHome(ListView):  # отображение домашней стра�
         return Movies.objects.filter(is_published=True)
 
 
-class CategoriesList(ListView):  # отображение списка категорий
+class CategoriesList(ListView):
+    """Отображение списка категорий"""
     model = Category
     template_name = "movies/list_of_categories.html"
     context_object_name = 'all_categories'
@@ -91,7 +102,10 @@ class CategoriesList(ListView):  # отображение списка кате�
         return context
 
 
-class MoviesByCategories(ListView):  # отображение фильмов определнной категории
+class MoviesByCategories(ListView):
+    """
+    Отображение списка фильмов определенной категории.
+    """
     model = Movies
     template_name = "movies/movies_by_category.html"
     context_object_name = 'movies_by_category'
@@ -107,7 +121,10 @@ class MoviesByCategories(ListView):  # отображение фильмов о�
         return Movies.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
 
 
-class MovieDetailView(DetailView):  # класс представления одного фильма
+class MovieDetailView(DetailView):
+    """
+    Представление одного фильма.
+    """
     model = Movies
     template_name = 'movies/detail_movie.html'
     slug_url_kwarg = 'movie_slug'
@@ -115,6 +132,7 @@ class MovieDetailView(DetailView):  # класс представления од
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["star_form"] = RatingForm()
         return context
 
 
