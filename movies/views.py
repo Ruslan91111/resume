@@ -16,10 +16,9 @@ from django.contrib.auth.views import PasswordChangeView
 
 
 class AddStarRating(View):
-    """
-    Добавление рейтинга к фильму
-    """
+    """    Добавление рейтинга фильму    """
     def get_client_ip(self, request):
+        # Извлекаем IP клиента из запроса
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
             print(x_forwarded_for)
@@ -27,7 +26,6 @@ class AddStarRating(View):
         else:
             ip = request.META.get('REMOTE_ADDR')
         return ip
-
 
     def post(self, request):
         form = RatingForm(request.POST)
@@ -42,18 +40,8 @@ class AddStarRating(View):
             return HttpResponse(status=400)
 
 
-
-
-
-
-
-
-
-
 class AddCommentView(CreateView):
-    """
-    Добавить комментарий
-    """
+    """    Добавить комментарий    """
     model = Comment
     form_class = CommentForm
     template_name = 'movies/add_comment.html'
@@ -72,9 +60,7 @@ class AddCommentView(CreateView):
 
 
 class CreateProfilePageView(CreateView):
-    """
-    Создать страницу профиля
-    """
+    """    Создать страницу профиля    """
     model = Profile
     form_class = ProfilePageForm
     template_name = "registration/create_user_profile_page.html"
@@ -85,9 +71,7 @@ class CreateProfilePageView(CreateView):
 
 
 class ShowProfilePageView(DetailView):
-    """
-    Показать страницу профиля.
-    """
+    """    Показать страницу профиля.    """
     model = Profile
     template_name = 'registration/user_profile_page.html'
 
@@ -101,9 +85,7 @@ class ShowProfilePageView(DetailView):
 
 
 class MoviesHome(ListView):
-    """
-    Отобразить домашнюю страницу
-    """
+    """    Отобразить домашнюю страницу    """
     model = Movies
     template_name = "movies/home.html"
     context_object_name = 'all_movies'
@@ -132,9 +114,7 @@ class CategoriesList(ListView):
 
 
 class MoviesByCategories(ListView):
-    """
-    Отображение списка фильмов определенной категории.
-    """
+    """    Отображение списка фильмов определенной категории.    """
     model = Movies
     template_name = "movies/movies_by_category.html"
     context_object_name = 'movies_by_category'
@@ -151,9 +131,7 @@ class MoviesByCategories(ListView):
 
 
 class MovieDetailView(DetailView):
-    """
-    Представление одного фильма.
-    """
+    """    Представление одного фильма.    """
     model = Movies
     template_name = 'movies/detail_movie.html'
     slug_url_kwarg = 'movie_slug'

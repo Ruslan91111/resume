@@ -14,12 +14,7 @@ urlpatterns = [
     path('category/<slug:cat_slug>/', MoviesByCategories.as_view(), name='movies_by_category'),
     path('movies/<slug:movie_slug>', MovieDetailView.as_view(), name='detail_movie'),
     path('movies/<int:pk>/comment', AddCommentView.as_view(), name='add_comment'),  # Добавить к фильму комментарий
-    path("add-rating/", AddStarRating.as_view(), name='add-rating'),
-
-
-    # path('comment_success/', comment_success, name='comment_success'),  # для переадресации при добавлении комментария
-    # path('movie_relation', UserMovieRelations),
-
+    path("add-rating/", AddStarRating.as_view(), name='add-rating'),    # добавление к фильму рейтинга
 
     path('register/', UserRegisterView.as_view(), name='register_user'),  # регистрация пользователя
     path('edit_profile/', UserEditView.as_view(), name='edit_profile'),  # редактирование настроек профиля
