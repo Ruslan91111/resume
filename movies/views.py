@@ -152,9 +152,8 @@ class MovieDetailView(DetailView):
 def add_rating(request, movie_id: int, rating: int) -> MovieDetailView:
     movie = Movies.objects.get(id=movie_id)
     RatingMovie.objects.filter(movie=movie, user=request.user).delete()
-    movie.rating_set.create(user=request.user, rating=rating)
+    movie.ratingmovie_set.create(user=request.user, rating=rating)
     return MovieDetailView(request)
-
 
 
 

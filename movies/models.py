@@ -139,7 +139,7 @@ class Comment(models.Model):
 class RatingMovie(models.Model):
     """Рейтинг"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movies, on_delete=models.CASCADE, verbose_name="фильм", related_name="ratings")
+    movie = models.ForeignKey(Movies, on_delete=models.CASCADE, verbose_name="фильм")
     rating = models.IntegerField(default=0)
 
     def __str__(self):

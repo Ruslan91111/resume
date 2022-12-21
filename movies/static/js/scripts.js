@@ -1,13 +1,12 @@
-// // Add star rating
-// const rating = document.querySelector('form[name=rating]');
-
-// rating.addEventListener("change", function (e) {
-//     // Получаем данные из формы
-//     let data = new FormData(this);
-//     fetch(`${this.action}`, {
-//         method: 'POST',
-//         body: data
-//     })
-//         .then(response => alert("Рейтинг установлен"))
-//         .catch(error => alert("Ошибка"))
-// });
+const rate = (rating, movies_id) => {
+    fetch(`/rate/${movies_id}/${rating}/`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(rest => {
+        window.location.reload();
+        // you may want to update the rating here
+        // to simplify stuff, I just reload the page
+    })
+}

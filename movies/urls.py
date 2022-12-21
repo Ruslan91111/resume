@@ -15,7 +15,7 @@ urlpatterns = [
     path('movies/<slug:movie_slug>', MovieDetailView.as_view(), name='detail_movie'),
     path('movies/<int:pk>/comment', AddCommentView.as_view(), name='add_comment'),  # Добавить к фильму комментарий
 
-    path("add-rating/<int:movie_id>/<int:rating>/", add_rating, name='add-rating'),    # добавление к фильму рейтинга
+    path("rate/<int:movie_id>/<int:rating>/", add_rating, name='add-rating'),    # добавление к фильму рейтинга
 
     path('register/', UserRegisterView.as_view(), name='register_user'),  # регистрация пользователя
     path('edit_profile/', UserEditView.as_view(), name='edit_profile'),  # редактирование настроек профиля
