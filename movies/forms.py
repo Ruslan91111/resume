@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django import forms
 from django.contrib.auth.models import User
-from .models import Comment, Profile, RatingStar, Rating
+from .models import Comment, Profile
 
 
 class ProfilePageForm(forms.ModelForm):
@@ -94,15 +94,15 @@ class PasswordChangingForm(PasswordChangeForm):
         fields = ('old_password', 'new_password1', 'new_password2')
 
 
-class RatingForm(forms.ModelForm):
-    """
-    Форма добавления рейтинга.
-    """
-    star = forms.ModelChoiceField(queryset=RatingStar.objects.all(), widget=forms.RadioSelect(), empty_label=None)
-
-    class Meta:
-        model = Rating
-        fields = ("star",)
+# class RatingForm(forms.ModelForm):
+#     """
+#     Форма добавления рейтинга.
+#     """
+#     star = forms.ModelChoiceField(queryset=RatingStar.objects.all(), widget=forms.RadioSelect(), empty_label=None)
+#
+#     class Meta:
+#         model = Rating
+#         fields = ("star",)
 
 
 

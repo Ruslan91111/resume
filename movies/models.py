@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.db.models import Avg
 from datetime import datetime, date
 from ckeditor.fields import RichTextField
 
@@ -16,8 +17,11 @@ class Movies(models.Model):
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name="Категория")
     watchers = models.ManyToManyField(User, through="UserMovieRelations", related_name="my_movies")
 
+    def average_rating(self) -> float:
+        return Rating.objects.filter(movie=self).aggregate(Avg("rating"))["rating_avg"] or 0
+
     def __str__(self):
-        return self.title
+        return f"{self.title}: {self.average_rating()}"
 
     def get_absolute_url(self):
         return reverse('detail_movie', kwargs={'movie_slug': self.slug})
@@ -119,27 +123,27 @@ class Comment(models.Model):
         return '%s - %s' % (self.movies.title, self.title)
 
 
-class RatingStar(models.Model):
-    """Звезды рейтинга"""
-    value = models.SmallIntegerField("Значение", default=0)
-
-    def __str__(self):
-        return f'{self.value}'
-
-    class Meta:
-        verbose_name = "Звезда рейтинга"
-        verbose_name_plural = "Звезды рейтинга"
+# class RatingStar(models.Model):
+#     """Звезды рейтинга"""
+#     value = models.SmallIntegerField("Значение", default=0)
+#
+#     def __str__(self):
+#         return f'{self.value}'
+#
+#     class Meta:
+#         verbose_name = "Звезда рейтинга"
+#         verbose_name_plural = "Звезды рейтинга"
         # ordering = ['value']
 
 
-class Rating(models.Model):
+class RatingMovie(models.Model):
     """Рейтинг"""
-    ip = models.CharField("IP адрес", max_length=15)
-    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movies, on_delete=models.CASCADE, verbose_name="фильм", related_name="ratings")
+    rating = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.star} - {self.movie}"
+        return f"{self.movie.title}: {self.rating}"
 
     class Meta:
         verbose_name = "Рейтинг фильма"

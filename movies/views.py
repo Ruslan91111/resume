@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import MoviesSerializer, UserMoviesRelationsSerializer
@@ -10,34 +10,34 @@ from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
-from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm, ProfilePageForm, RatingForm
-from .models import Category, Movies, Comment, Profile, Rating
+from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm, ProfilePageForm
+from .models import Category, Movies, Comment, Profile, RatingMovie
 from django.contrib.auth.views import PasswordChangeView
 
 
-class AddStarRating(View):
-    """    Добавление рейтинга фильму    """
-    def get_client_ip(self, request):
-        # Извлекаем IP клиента из запроса
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            print(x_forwarded_for)
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
-
-    def post(self, request):
-        form = RatingForm(request.POST)
-        if form.is_valid():
-            Rating.objects.update_or_create(
-                ip=self.get_client_ip(request),
-                movie_id=int(request.POST.get("movie")),
-                defaults={'star_id': int(request.POST.get('star'))}
-            )
-            return HttpResponse(status=201)
-        else:
-            return HttpResponse(status=400)
+# class AddStarRating(View):
+#     """    Добавление рейтинга фильму    """
+#     def get_client_ip(self, request):
+#         # Извлекаем IP клиента из запроса
+#         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+#         if x_forwarded_for:
+#             print(x_forwarded_for)
+#             ip = x_forwarded_for.split(',')[0]
+#         else:
+#             ip = request.META.get('REMOTE_ADDR')
+#         return ip
+#
+#     def post(self, request):
+#         form = RatingForm(request.POST)
+#         if form.is_valid():
+#             Rating.objects.update_or_create(
+#                 ip=self.get_client_ip(request),
+#                 movie_id=int(request.POST.get("movie")),
+#                 defaults={'star_id': int(request.POST.get('star'))}
+#             )
+#             return HttpResponse(status=201)
+#         else:
+#             return HttpResponse(status=400)
 
 
 class AddCommentView(CreateView):
@@ -137,19 +137,40 @@ class MovieDetailView(DetailView):
     slug_url_kwarg = 'movie_slug'
     context_object_name = 'detail_movie'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, request: HttpRequest, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["star_form"] = RatingForm()
+
+        movies = Movies.objects.all()
+        for movie in movies:
+            rating = RatingMovie.objects.filter(movie=movie, user=request.user).first()
+            movie.user_rating = rating.rating if rating else 0
+        context['movies'] = movies
+
         return context
 
 
-class UserRegisterView(CreateView):  # регистрация пользователей
+def add_rating(request, movie_id: int, rating: int) -> MovieDetailView:
+    movie = Movies.objects.get(id=movie_id)
+    RatingMovie.objects.filter(movie=movie, user=request.user).delete()
+    movie.rating_set.create(user=request.user, rating=rating)
+    return MovieDetailView(request)
+
+
+
+
+class UserRegisterView(CreateView):
+    """
+    регистрация пользователей
+    """
     form_class = SignUpForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
 
 
-class UserEditView(UpdateView):  # отредактировать страницу юзера - пользователя
+class UserEditView(UpdateView):
+    """
+    отредактировать страницу юзера - пользователя
+    """
     form_class = EditProfileForm
     template_name = 'registration/edit_profile.html'
     success_url = reverse_lazy('home')
@@ -159,7 +180,10 @@ class UserEditView(UpdateView):  # отредактировать страниц
 
 
 
-class EditProfilePageView(UpdateView):  # Редактирование страницы профиля
+class EditProfilePageView(UpdateView):
+    """
+    Редактирование страницы профиля
+    """
     model = Profile
     # form_class = EditProfileForm
     template_name = 'registration/edit_profile_page.html'
