@@ -18,7 +18,7 @@ class Movies(models.Model):
     watchers = models.ManyToManyField(User, through="UserMovieRelations", related_name="my_movies")
 
     def average_rating(self) -> float:
-        return Rating.objects.filter(movie=self).aggregate(Avg("rating"))["rating_avg"] or 0
+        return RatingMovie.objects.filter(movie=self).aggregate(Avg("rating"))["rating__avg"] or 0
 
     def __str__(self):
         return f"{self.title}: {self.average_rating()}"

@@ -137,12 +137,12 @@ class MovieDetailView(DetailView):
     slug_url_kwarg = 'movie_slug'
     context_object_name = 'detail_movie'
 
-    def get_context_data(self, request: HttpRequest, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         movies = Movies.objects.all()
         for movie in movies:
-            rating = RatingMovie.objects.filter(movie=movie, user=request.user).first()
+            rating = RatingMovie.objects.filter(movie=movie, user=self.request.user).first()
             movie.user_rating = rating.rating if rating else 0
         context['movies'] = movies
 
