@@ -7,6 +7,7 @@ from ckeditor.fields import RichTextField
 
 
 class Movies(models.Model):
+    """    Фильмы    """
     title = models.CharField(max_length=255, verbose_name="Название фильма")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name="Фото")
@@ -15,7 +16,6 @@ class Movies(models.Model):
     time_update = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
     is_published = models.BooleanField(default=True, verbose_name="Публикация")
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name="Категория")
-    watchers = models.ManyToManyField(User, through="UserMovieRelations", related_name="my_movies")
 
     def average_rating(self) -> float:
         return RatingMovie.objects.filter(movie=self).aggregate(Avg("rating"))["rating__avg"] or 0
@@ -32,33 +32,8 @@ class Movies(models.Model):
         ordering = ['?']
 
 
-class UserMovieRelations(models.Model):
-    RATE_CHOICES = (
-        (1, 'Ok'),
-        (2, 'Poor'),
-        (3, 'Satisfactory'),
-        (4, 'Good'),
-        (5, 'Excellent'),
-    )
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
-    movie = models.ForeignKey(Movies, on_delete=models.CASCADE, verbose_name="Фильм")
-    like = models.BooleanField(default=False)
-    in_bookmarks = models.BooleanField(default=False)
-    rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
-
-    def __str__(self):
-        return f"{self.user.username}: {self.movie.title}, оценка {self.rate}"
-
-
-    class Meta:
-        verbose_name = "Отношения фильм пользователь"
-        verbose_name_plural = "Отношения фильм пользователь"
-        ordering = ['?']
-
-
-
 class Staff(models.Model):
+    """    Персонал: актеры, режиссеры    """
     name = models.CharField(max_length=255, verbose_name="Имя фамилия")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name="Фото")
@@ -69,7 +44,7 @@ class Staff(models.Model):
     movies = models.ManyToManyField('Movies')
 
     def __str__(self):
-        return self.title
+        return self.name
 
     def get_absolute_url(self):
         return reverse('staff', kwargs={'staff_slug': self.slug})
@@ -81,6 +56,7 @@ class Staff(models.Model):
 
 
 class Category(models.Model):
+    """    Категории пока только фильмов    """
     title_cat = models.CharField(max_length=100, db_index=True, verbose_name="Категория")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
 
@@ -97,6 +73,7 @@ class Category(models.Model):
 
 
 class Profile(models.Model):
+    """    Создаваемая пользователем страница профиля    """
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255, null=True, blank=True, verbose_name="Имя")
     last_name = models.CharField(max_length=255, null=True, blank=True, verbose_name="Фамилия")
@@ -123,21 +100,8 @@ class Comment(models.Model):
         return '%s - %s' % (self.movies.title, self.title)
 
 
-# class RatingStar(models.Model):
-#     """Звезды рейтинга"""
-#     value = models.SmallIntegerField("Значение", default=0)
-#
-#     def __str__(self):
-#         return f'{self.value}'
-#
-#     class Meta:
-#         verbose_name = "Звезда рейтинга"
-#         verbose_name_plural = "Звезды рейтинга"
-        # ordering = ['value']
-
-
 class RatingMovie(models.Model):
-    """Рейтинг"""
+    """Рейтинг фильмов"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movies, on_delete=models.CASCADE, verbose_name="фильм")
     rating = models.IntegerField(default=0)

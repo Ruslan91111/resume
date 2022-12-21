@@ -2,7 +2,6 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.http import HttpResponse, HttpRequest
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import MoviesSerializer, UserMoviesRelationsSerializer
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
@@ -13,31 +12,6 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm, ProfilePageForm
 from .models import Category, Movies, Comment, Profile, RatingMovie
 from django.contrib.auth.views import PasswordChangeView
-
-
-# class AddStarRating(View):
-#     """    Добавление рейтинга фильму    """
-#     def get_client_ip(self, request):
-#         # Извлекаем IP клиента из запроса
-#         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-#         if x_forwarded_for:
-#             print(x_forwarded_for)
-#             ip = x_forwarded_for.split(',')[0]
-#         else:
-#             ip = request.META.get('REMOTE_ADDR')
-#         return ip
-#
-#     def post(self, request):
-#         form = RatingForm(request.POST)
-#         if form.is_valid():
-#             Rating.objects.update_or_create(
-#                 ip=self.get_client_ip(request),
-#                 movie_id=int(request.POST.get("movie")),
-#                 defaults={'star_id': int(request.POST.get('star'))}
-#             )
-#             return HttpResponse(status=201)
-#         else:
-#             return HttpResponse(status=400)
 
 
 class AddCommentView(CreateView):
@@ -140,6 +114,7 @@ class MovieDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        # отображение текущего рейтинга
         movies = Movies.objects.all()
         for movie in movies:
             rating = RatingMovie.objects.filter(movie=movie, user=self.request.user).first()
@@ -150,26 +125,22 @@ class MovieDetailView(DetailView):
 
 
 def add_rating(request, movie_id: int, rating: int) -> MovieDetailView:
+    """    Добавление рейтинга к фильму.    """
     movie = Movies.objects.get(id=movie_id)
     RatingMovie.objects.filter(movie=movie, user=request.user).delete()
     movie.ratingmovie_set.create(user=request.user, rating=rating)
     return MovieDetailView(request)
 
 
-
 class UserRegisterView(CreateView):
-    """
-    регистрация пользователей
-    """
+    """    регистрация пользователей    """
     form_class = SignUpForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
 
 
 class UserEditView(UpdateView):
-    """
-    отредактировать страницу юзера - пользователя
-    """
+    """    отредактировать страницу юзера - пользователя    """
     form_class = EditProfileForm
     template_name = 'registration/edit_profile.html'
     success_url = reverse_lazy('home')
@@ -178,11 +149,8 @@ class UserEditView(UpdateView):
         return self.request.user
 
 
-
 class EditProfilePageView(UpdateView):
-    """
-    Редактирование страницы профиля
-    """
+    """    Редактирование страницы профиля    """
     model = Profile
     # form_class = EditProfileForm
     template_name = 'registration/edit_profile_page.html'
@@ -198,21 +166,16 @@ class EditProfilePageView(UpdateView):
         return context
 
 
-class PasswordsChangeView(PasswordChangeView):          # Изменение пароля юзера
+class PasswordsChangeView(PasswordChangeView):
+    """    Изменение пароля юзера    """
     form_class = PasswordChangingForm
     success_url = reverse_lazy('password_success')
 
 
-def password_success(request):                     # сообщение о том, что пароль успешно изменен
+def password_success(request):
+    # сообщение о том, что пароль успешно изменен
     return render(request, 'registration/password_success.html', {})
 
 
-
-
-# class UserMoviesRelationsView(UpdateModelMixin, GenericViewSet):
-#     permission_classes = [IsAuthenticated]
-#     queryset = UserMovieRelations.objects.all()
-#     serializer_class = UserMoviesRelationsSerializer
-#     lookup_field = 'movie'
 
 
