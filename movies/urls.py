@@ -10,8 +10,8 @@ from .views import MoviesHome, CategoriesList, MoviesByCategories, MovieDetailVi
 
 urlpatterns = [
     path('', MoviesHome.as_view(), name='home'),
-    path('categories', CategoriesList.as_view(), name='list_of_categories'),
-    path('category/<slug:cat_slug>/', MoviesByCategories.as_view(), name='movies_by_category'),
+    path('categories', CategoriesList.as_view(), name='list_of_categories'),   # отображение списка категорий
+    path('category/<slug:cat_slug>/', MoviesByCategories.as_view(), name='movies_by_category'),   # отображение фильмов одной категории
     path('movies/<slug:movie_slug>', MovieDetailView.as_view(), name='detail_movie'), # Отображение информации об одном фильме
     path('movies/<int:pk>/comment', AddCommentView.as_view(), name='add_comment'),  # Добавить к фильму комментарий
     path("rate/<int:movie_id>/<int:rating>/", add_rating, name='add-rating'),    # добавление к фильму рейтинга
