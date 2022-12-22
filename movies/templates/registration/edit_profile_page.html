@@ -10,9 +10,15 @@
     <h1>Редактирование страницы профиля</h1>
     <br/><br/><br/>
 
-    {% if page_user.profile_pic %}
-    <img src="{{ page_user.profile_pic.url }}">
-{% endif %}
+    <div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-2">
+       {% if page_user.profile_pic %} <!-- БЛОК НА ПУСТУЮ КАРТИНКУ ПРОФАЙЛА -->
+           <img src="{{ page_user.profile_pic.url }}" class="img-fluid rounded-start">
+       {% else %}
+           <img src="../../static/images/profile_page.png" alt="profile-image" class="img-fluid rounded-start">
+       {% endif %}
+    </div>
 
     <div class="form-group">
 

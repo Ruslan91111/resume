@@ -17,15 +17,19 @@ body {
 
 }
 
-
 .navbar-brand img {
 	width: 55px;
 }
 
+.central-block {
+	background: white;
+	font-weight: 400;
+	color: black;
+}
 
 /*ЛЕВЫЙ НАВБАР*/
 
-.left-sidebar {
+/*.left-sidebar {
 	background: linear-gradient(90deg, #DCF2F5 0%, #FDFDFD 100%);
 	list-style-type: none;
 	border: solid;
@@ -46,7 +50,7 @@ body {
     font-family: Lobster;
     font-size: 18px;
 
-}
+}*/
 
 .title-cat {
 	display: block;

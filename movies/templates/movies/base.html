@@ -20,26 +20,30 @@
 
 
 <header>
-    
+
+<!-- Навбар  -->
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        </button>  
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">       
           
+<!-- Список навбара -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная</a>
             </li>
 
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Фильмы по категориям 
-                </a>
-                  
-                <ul class="dropdown-menu dropdown-menu-right">
+
+<!-- Фильмы по категориям -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Фильмы по категориям 
+            </a>
+              
+            <ul class="dropdown-menu dropdown-menu-right">
                 <li><a class="dropdown-item" href="{% url 'movies_by_category' 'action' %}">Боевики</a></li>
                 <li><a class="dropdown-item" href="{% url 'movies_by_category' 'detective' %}">Детективы</a></li>
                 <li><a class="dropdown-item" href="{% url 'movies_by_category' 'historical' %}">Исторические</a></li>
@@ -48,23 +52,24 @@
                 <li><a class="dropdown-item" href="{% url 'movies_by_category' 'thriller' %}">Триллеры</a></li>
                 <li><a class="dropdown-item" href="{% url 'movies_by_category' 'horror' %}">Ужасы</a></li>
                 <li><a class="dropdown-item" href="{% url 'list_of_categories' %}">Все категории</a></li>
+            </ul>        
+        </li>
+<!-- Конец фильмов по категориям -->
 
-                </ul>        
-            </li>
 
+<!-- Персоналии -->
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Персоналии</a>
+        </li>
+<!-- Конец персоналий -->
 
 
 <!-- Профиль выпад.начало -->
-
       {% if user.is_authenticated %}
-
-
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Мой профиль 
-              </a>
-                  
-
+              </a>    
                 <ul class="dropdown-menu dropdown-menu-right">
                       {% if user.profile.id %}                   
                           <!-- <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Редактировать настройки</a></li> -->
@@ -76,59 +81,52 @@
                 </ul>        
             </li>
       {% endif %}
+<!-- Конец профиля -->
         
 
+<!-- Аутентификация начало -->
+    {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+      </li>
+    {% else %}
+       <li class="nav-item">
+         <a class="nav-link" href="{% url 'login' %}">Войти</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="{% url 'register_user' %}">Регистрация</a>
+       </li>
+    {% endif %}
+<!-- Аутентификация конец  -->
 
 
+  </ul>
+</ul>
 
 
-
-
-
-
-            {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
-              </li>
-            {% else %}
-               <li class="nav-item">
-                 <a class="nav-link" href="{% url 'login' %}">Войти</a>
-               </li>
-               <li class="nav-item">
-                 <a class="nav-link" href="{% url 'register_user' %}">Регистрация</a>
-               </li>
-            {% endif %}
-
-        </ul>
-      </ul>
-
+<!-- Форма поиска -->
           <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
-        </div>
+<!-- Конец формы поиска -->
+  
       </div>
-    </nav>
-   </header>
-
-
-
-
+    </div>
+  </nav>
+</header>
 
 
 
 <section>
-
-
 <div class="row">
 
-
-
+<!-- Левая часть экрана -->
   <div class="col-lg-2 col-md-12">
-        <div class="row px-2">        
-        <div class="col-lg-12 sidebar my-4">
+    <div class="row px-2">        
+      <div class="col-lg-12 sidebar my-4">
         <!-- {% get_categories as categories %} -->
-            <div class="left-sidebar"><p style="font-family: Lobster; font-size: 30px; margin-left: 20px;">Фильмы по жанрам</p>    
+            <!-- <div class="left-sidebar"><p style="font-family: Lobster; font-size: 30px; margin-left: 20px;">Фильмы по жанрам</p>    
                   {% for c in categories %}
                      {% if c.pk == cat_selected %}
                         <li class="selected" style="font-size: 25px; color: black;  font-family: Lobster;   background: white;">{{c.title_cat}}</li>
@@ -136,24 +134,35 @@
                         <li><a href="{{ c.get_absolute_url }}">{{ c.title_cat }}</a></li>
                      {% endif %}
                   {% endfor %} 
-            </div>
-        </div>
-        </div>
+            </div> -->
+      </div>
+    </div>
   </div>
+<!-- Конец левой части экрана -->
 
-  <div class="col-lg-8 col-md-12">
-    {% block content %}
-    {% endblock %}
-  </div>
 
-  <div class="col-lg-2 col-md-12">
-  </div>
+<!-- Центральный блок -->
+
+    <div class="col-lg-8 col-md-12">
+    
+      {% block content %}
+      {% endblock %}
+    
+    </div>
+    <div class="col-lg-2 col-md-12">
+    </div>
+<!-- Конец центрального блока -->
+
 
 </div>
 
 
 
 </section>
+
+
+
+
 <script src="../../static/js/scripts.js"></script>
 
 
