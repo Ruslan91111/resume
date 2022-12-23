@@ -3,11 +3,35 @@
 {% extends 'movies/base.html' %}
 {% block content %}
 
+<div class="title-cat"><h1>{{ actor.name }}</h1></div>
 
-<h1>Страница информации об актере </h1>
+    <div class="image_detail_movie">
+      <img src="{{ actor.photo.url }}" class="card-img-top" alt="Pictures"></a>
+    </div>
+  
+    <div class="plot-text">
+      {{ actor.bio }}
+    </div>
 
-<!--   <div style="display: block; margin: 0 auto;">      
-    <img src="{{ shot.shot.url  }}" class="img-fluid" alt="shot"></a>
-  </div> -->
+
+<!-- Фильмы, в которых снимался -->
+  <div class="actors">   
+    {% for movie in actor.movies_set.all %}
+
+        <div class="card-movie">
+          <a href="{{ movie.get_absolute_url }}"><img src="{{ movie.photo.url }}" class="card-img-top" alt="Pictures"></a>
+            <div class="card-body">
+              <p>{{ movie.title }}</p>
+              <a href="{{ movie.get_absolute_url }}" class="btn btn-primary">Выбрать</a>
+            </div>
+        </div>
+
+      {% endfor %}
+  </div>
+<!-- Конец актерского состава -->
+
+
+
 
 {% endblock %}
+

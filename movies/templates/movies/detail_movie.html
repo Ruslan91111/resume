@@ -37,16 +37,29 @@
   </ul>
 <!-- Окончание звезд рейтинга -->
 
+
+
 <!-- Актерский состав -->
+<h1 style="text-align:center;">Актерский состав.</h1>
   <div class="actors">   
-      {% for actor in detail_movie.actor_set.all %}
-           <a href="{{ actor.get_absolute_url }}"><img src="{{ actor.photo.url }}" class="img-fluid" alt="shot"></a>
+    {% for actor in detail_movie.actor_set.all %}
+
+        <div class="card-movie">
+          <a href="{{ actor.get_absolute_url }}"><img src="{{ actor.photo.url }}" class="card-img-top" alt="Pictures"></a>
+            <div class="card-body">
+              <p>{{ actor.name }}</p>
+              <a href="{{ actor.get_absolute_url }}" class="btn btn-primary">Выбрать</a>
+            </div>
+        </div>
+
       {% endfor %}
   </div>
 <!-- Конец актерского состава -->
 
 
 <!-- Кадры из фильма -->
+<h1 style="text-align:center;">Кадры из фильма.</h1>
+
   <div class="shots">   
       {% for shot in detail_movie.movieshot_set.all %}
            <a href="{{ shot.get_absolute_url }}"><img src="{{ shot.shot.url }}" class="img-fluid" alt="shot"></a>
