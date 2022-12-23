@@ -124,8 +124,8 @@ class MovieDetailView(DetailView):
         return context
 
 
-def show_shot_detail(self, request, pk):
-    shot = MovieShot.objects.get(pk=pk)
+def show_shot_detail(request, shot_pk):
+    shot = MovieShot.objects.get(pk=shot_pk)
     return render(request, 'movies/shot_detail.html', {'shot': shot})
 
 
