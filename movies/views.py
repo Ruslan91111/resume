@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm, ProfilePageForm
-from .models import Category, Movies, Comment, Profile, RatingMovie, MovieShot
+from .models import Category, Movies, Comment, Profile, RatingMovie, MovieShot, Actor
 from django.contrib.auth.views import PasswordChangeView
 
 
@@ -120,6 +120,19 @@ class MovieDetailView(DetailView):
             rating = RatingMovie.objects.filter(movie=movie, user=self.request.user).first()
             movie.user_rating = rating.rating if rating else 0
         context['movies'] = movies
+
+        return context
+
+
+class ActorDetailView(DetailView):
+    """    Представление страницы об актёре.    """
+    model = Actor
+    template_name = 'movies/actor_detail.html'
+    slug_url_kwarg = 'actor_slug'
+    context_object_name = 'actor'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         return context
 

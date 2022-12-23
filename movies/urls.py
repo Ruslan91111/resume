@@ -5,7 +5,7 @@ from rest_framework.routers import SimpleRouter
 
 from .views import MoviesHome, CategoriesList, MoviesByCategories, MovieDetailView, \
     AddCommentView, UserRegisterView, EditProfilePageView, ShowProfilePageView, UserEditView, \
-    PasswordsChangeView, password_success, CreateProfilePageView, add_rating, show_shot_detail
+    PasswordsChangeView, password_success, CreateProfilePageView, add_rating, show_shot_detail, ActorDetailView
 
 
 
@@ -16,10 +16,8 @@ urlpatterns = [
     path('movies/<slug:movie_slug>', MovieDetailView.as_view(), name='detail_movie'), # Отображение информации об одном фильме
     path('movies/<int:pk>/comment', AddCommentView.as_view(), name='add_comment'),  # Добавить к фильму комментарий
     path("rate/<int:movie_id>/<int:rating>/", add_rating, name='add-rating'),    # добавление к фильму рейтинга
-
+    path('<slug:actor_slug>', ActorDetailView.as_view(), name='actor_detail'),  # Отображение информации об актере
     path('shot/<int:shot_pk>', show_shot_detail, name='show-shot-detail'),    # Отображение одного кадра
-
-
 
     path('register/', UserRegisterView.as_view(), name='register_user'),  # регистрация пользователя
     path('edit_profile/', UserEditView.as_view(), name='edit_profile'),  # редактирование настроек профиля
