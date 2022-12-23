@@ -124,6 +124,12 @@ class MovieDetailView(DetailView):
         return context
 
 
+def show_shot_detail(self, request, pk):
+    shot = MovieShot.objects.get(pk=pk)
+    return render(request, 'movies/shot_detail.html', {'shot': shot})
+
+
+
 def add_rating(request, movie_id: int, rating: int) -> MovieDetailView:
     """    Добавление рейтинга к фильму.    """
     movie = Movies.objects.get(id=movie_id)

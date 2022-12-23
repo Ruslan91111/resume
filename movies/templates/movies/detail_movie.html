@@ -15,7 +15,6 @@
 
 
 <!-- Добавление звёзд рейтинга --> 
-
 <h5 class="card-title">Средний рейтинг:
     <span class="fa fa-star {% if detail_movie.average_rating > 0 %} checked {% endif %}"></span>
     <span class="fa fa-star {% if detail_movie.average_rating > 1 %} checked {% endif %}"></span>
@@ -23,7 +22,6 @@
     <span class="fa fa-star {% if detail_movie.average_rating > 3 %} checked {% endif %}" ></span>
     <span class="fa fa-star {% if detail_movie.average_rating > 4 %} checked {% endif %}"></span>
 </h5>
-
 
   <ul class="btn btn-light list-inline rating-list">
     <li onclick="rate(5, {{ detail_movie.id }})">
@@ -37,19 +35,20 @@
     <li onclick="rate(1, {{ detail_movie.id }})">
         <i class="fa fa-star {% if detail_movie.user_rating > 0 %} checked {% endif %}" title="Rate 1"></i></li>
   </ul>
+<!-- Окончание звезд рейтинга -->
 
-  <div class="shots">
-      
 
-        
-
+<!-- Кадры из фильма -->
+  <div class="shots">   
       {% for shot in detail_movie.movieshot_set.all %}
-           <img src="{{ shot.shot.url }}" class="img-fluid" alt="shot"></a>
-                     
-        </div>
-       {% endfor %}
-
+           <a href="{{ shot.get_absolute_url }}"><img src="{{ shot.shot.url }}" class="img-fluid" alt="shot"></a>
+      {% endfor %}
   </div>
+
+
+
+<!-- конец кадров из фильма  -->
+
 
 
 

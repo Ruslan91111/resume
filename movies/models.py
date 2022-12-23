@@ -41,6 +41,9 @@ class MovieShot(models.Model):
         verbose_name = "Кадр из фильма"
         verbose_name_plural = "Кадры из фильма"
 
+    def get_absolute_url(self):
+        return reverse('show-shot-detail', kwargs={'shot_pk': self.pk})
+
 
 class Staff(models.Model):
     """    Персонал: актеры, режиссеры    """
