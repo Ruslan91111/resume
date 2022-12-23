@@ -32,6 +32,16 @@ class Movies(models.Model):
         ordering = ['?']
 
 
+class MovieShot(models.Model):
+    """Кадры из фильма"""
+    shot = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name="кадр", null=True)
+    movie = models.ForeignKey(Movies, verbose_name="Фильм", on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Кадр из фильма"
+        verbose_name_plural = "Кадры из фильма"
+
+
 class Staff(models.Model):
     """    Персонал: актеры, режиссеры    """
     name = models.CharField(max_length=255, verbose_name="Имя фамилия")

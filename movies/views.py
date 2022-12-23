@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from .forms import SignUpForm, PasswordChangingForm, CommentForm, EditProfileForm, ProfilePageForm
-from .models import Category, Movies, Comment, Profile, RatingMovie
+from .models import Category, Movies, Comment, Profile, RatingMovie, MovieShot
 from django.contrib.auth.views import PasswordChangeView
 
 

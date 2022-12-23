@@ -98,6 +98,12 @@ body {
 
 }
 
+.shots {
+	display: flex;
+	padding: 20px;
+
+}
+
 .plot-text {
 	display: flex;
 	padding: 20px;

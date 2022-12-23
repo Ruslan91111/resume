@@ -38,23 +38,31 @@
         <i class="fa fa-star {% if detail_movie.user_rating > 0 %} checked {% endif %}" title="Rate 1"></i></li>
   </ul>
 
+  <div class="shots">
+      
+
+        
+
+      {% for shot in detail_movie.movieshot_set.all %}
+           <img src="{{ shot.shot.url }}" class="img-fluid" alt="shot"></a>
+                     
+        </div>
+       {% endfor %}
+
+  </div>
 
 
 
 
 <!--       {% if user.is_authenticated %}
-
           {% if liked %}
               <button type="submit", name="detail_movie_id", value = "{{ detail_movie.id }}", class="btn btn-danger btn-sm">Не нравится</button>
           {% else %}
               <button type="submit", name="detail_movie_id", value = "{{ detail_movie.id }}", class="btn btn-primary btn-sm">Нравится</button>
           {% endif %}
-    
-      {% else %}
-    
-        <small><a href="{% url 'login' %}">Войти</a></small>
-      {% endif %} -->
-         
+        {% else %}
+            <small><a href="{% url 'login' %}">Войти</a></small>
+      {% endif %} -->     
 <!--    - {{ total_likes }} Likes
 </form> -->
 
