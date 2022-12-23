@@ -125,9 +125,9 @@ class MovieDetailView(DetailView):
 
 
 def show_shot_detail(request, shot_pk):
+    """  Отображение одного кадра  """
     shot = MovieShot.objects.get(pk=shot_pk)
     return render(request, 'movies/shot_detail.html', {'shot': shot})
-
 
 
 def add_rating(request, movie_id: int, rating: int) -> MovieDetailView:

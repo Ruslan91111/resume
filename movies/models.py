@@ -45,12 +45,12 @@ class MovieShot(models.Model):
         return reverse('show-shot-detail', kwargs={'shot_pk': self.pk})
 
 
-class Staff(models.Model):
+class Actor(models.Model):
     """    Персонал: актеры, режиссеры    """
     name = models.CharField(max_length=255, verbose_name="Имя фамилия")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name="Фото")
-    bio = models.TextField(blank=True, verbose_name="Сюжет")
+    bio = models.TextField(blank=True, verbose_name="Биография")
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
     time_update = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
     is_published = models.BooleanField(default=True, verbose_name="Публикация")
@@ -60,7 +60,7 @@ class Staff(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('staff', kwargs={'staff_slug': self.slug})
+        return reverse('actor_detail', kwargs={'actor_slug': self.slug})
 
     class Meta:
         verbose_name = "Актеры и режиссеры"
@@ -94,6 +94,11 @@ class Profile(models.Model):
     bio = models.TextField(max_length=2055, null=True, blank=True, verbose_name="О себе")
     profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/", verbose_name="Картинка профиля")
 
+    class Meta:
+        verbose_name = "Профиль"
+        verbose_name_plural = "Профили"
+        ordering = ['?']
+
     def __str__(self):
         return str(self.user)
 
@@ -111,6 +116,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return '%s - %s' % (self.movies.title, self.title)
+
+    class Meta:
+        verbose_name = "Комментарий"
+        verbose_name_plural = "Комментарии"
+        ordering = ['?']
 
 
 class RatingMovie(models.Model):

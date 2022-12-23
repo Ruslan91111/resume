@@ -37,6 +37,14 @@
   </ul>
 <!-- Окончание звезд рейтинга -->
 
+<!-- Актерский состав -->
+  <div class="actors">   
+      {% for actor in detail_movie.actor_set.all %}
+           <a href="{{ actor.get_absolute_url }}"><img src="{{ actor.photo.url }}" class="img-fluid" alt="shot"></a>
+      {% endfor %}
+  </div>
+<!-- Конец актерского состава -->
+
 
 <!-- Кадры из фильма -->
   <div class="shots">   
