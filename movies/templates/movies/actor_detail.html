@@ -15,8 +15,9 @@
 
 
 <!-- Фильмы, в которых снимался -->
+<h1 style="text-align:center;">{{ actor.name }} принимал участие в следующих фильмах:</h1>
   <div class="actors">   
-    {% for movie in actor.movies_set.all %}
+    {% for movie in actor.movies.all %}
 
         <div class="card-movie">
           <a href="{{ movie.get_absolute_url }}"><img src="{{ movie.photo.url }}" class="card-img-top" alt="Pictures"></a>
