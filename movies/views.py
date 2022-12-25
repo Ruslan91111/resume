@@ -124,6 +124,20 @@ class MovieDetailView(DetailView):
         return context
 
 
+class AllActors(ListView):
+    """    Отображение всех аткеров и режиссеров    """
+    model = Actor
+    template_name = "movies/list_of_actors.html"
+    context_object_name = 'actors'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     return context
+
+    def get_queryset(self):
+        return Actor.objects.all()
+
+
 class ActorDetailView(DetailView):
     """    Представление страницы об актёре.    """
     model = Actor

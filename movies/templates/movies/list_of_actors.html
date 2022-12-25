@@ -1,0 +1,20 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+<div class="title-cat"><h1>{{ title }}</h1></div>
+    <div class="container-fluid">
+        <div class="container_with_movies_by_cat">
+          <div class="row">   
+              {% for actor in actors %}
+                  <div class="card-movie">
+                   <a href="{{ actor.get_absolute_url }}"><img src="{{ actor.photo.url }}" class="card-img-top" alt="Picture"></a>
+                   <div class="card-body">
+                     <p>{{ actor.name }}</p>
+                     <a href="{{ actor.get_absolute_url }}" class="btn btn-primary">Выбрать</a>
+                   </div>
+                  </div>
+              {% endfor %}
+          </div>
+        </div>
+    </div>
+{% endblock %}
